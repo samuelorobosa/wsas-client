@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { routeNames, subRouteNames } from "./routenames";
-import { DashboardPage } from "../uikit";
+import DashboardPage from "../../modules/dashboard/pages/DashboardPage/DashboardPage"
 import ProfilePage from "../../modules/user/pages/ProfilePage/ProfilePage";
 import EventHistoryPage from "../../modules/user/pages/EventHistoryPage/EventHistoryPage";
 
@@ -20,6 +20,10 @@ const appRouter = createBrowserRouter([
       {
         path: subRouteNames.eventHistory,
         element: <EventHistoryPage />,
+      },
+      {
+        path: '*',
+        element: <div>PAGE IS STILL IN DEVELOPMENT</div>
       }
     ]
   }

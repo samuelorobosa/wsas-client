@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import './DashboardPage.css';
-import NavDrawer from '../NavDrawer/NavDrawer';
+import NavDrawer from '../../components/NavDrawer/NavDrawer';
 
 export default function DashboardPage() {
   return (

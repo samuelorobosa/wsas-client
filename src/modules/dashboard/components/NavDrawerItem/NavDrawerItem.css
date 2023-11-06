@@ -1,0 +1,126 @@
+.nav-drawer-item .clickable {
+  background-color: #343a40;
+  border: none;
+  padding: .64rem 1.28rem;
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+
+  color: white;
+  width: 100%;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.nav-drawer-item .clickable.isActive {
+  border-left: solid 3px #007bff;
+}
+
+.nav-drawer-item .clickable .leading-icon {
+  color: #c2c7d0;
+  margin-right: 6.4px;
+}
+
+.nav-drawer-item .clickable .title {
+  flex-grow: 1;
+  text-align: start;
+  transition: margin-left .3s linear,opacity .3s ease,visibility .3s ease;
+  color: #c2c7d0;
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+.nav-drawer-item .clickable.isActive .title {
+  color: white;
+  font-weight: 500;
+}
+
+.nav-drawer-item .clickable .trailing-icon-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  transition: all .2s;
+}
+
+.nav-drawer-item .clickable .trailing-icon-wrapper.open {
+  transform: rotate(180deg);
+}
+
+.nav-drawer-item .clickable .trailing-icon {
+  color: #c2c7d0;
+  width: 9px;
+}
+
+.nav-drawer-item .links {
+  background: rgba(255,255,255,.05);
+  transition: all .5s;
+  max-height: 0px;
+}
+
+.nav-drawer-item .links.open {
+  max-height: 400px;
+}
+
+.nav-drawer-item .links .links-list {
+  display: none;
+}
+
+.nav-drawer-item .links.open .links-list {
+  display: block;
+}
+
+.nav-drawer-item .links .links-list a {
+  text-decoration: none;
+}
+
+.nav-drawer-item .links .link-btn {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  color: #c2c7d0;
+  
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  padding-left: 32.8px;
+  padding: 8px 0 8px 32.8px;
+
+  cursor: pointer;
+}
+
+.nav-drawer-item .links .link-active .link-btn {
+  color: white;
+}
+
+.nav-drawer-item .links .link-btn .selection-circle {
+  width: 17px;
+  height: 17px;
+  border: solid 1.5px #c2c7d0;
+  border-radius: 50%;
+  margin-right: 6.4px;
+}
