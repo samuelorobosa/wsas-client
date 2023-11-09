@@ -14,4 +14,6 @@ export const subRouteNames = {
 export const routeNames = {
   dashboard: '/dashboard',
   home: '/',
+  login: '/login',
+  register: '/register'
 }

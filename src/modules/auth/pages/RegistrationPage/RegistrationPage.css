@@ -1,0 +1,92 @@
+.registration-page .logo-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+
+  margin: 40px 0 40px;
+}
+
+.registration-page .logo-box .logo {
+  height: 24px;
+  margin-right: 6.4px;
+}
+
+.registration-page .reg-form {
+  padding: 20px;
+}
+
+.registration-page .reg-form .form-label {
+  padding: 0 20px 20px;
+}
+
+.registration-page .reg-form .select-group {
+  width: 100%;
+  border: solid 1px rgb(206, 212, 218);
+  border-radius: .25rem;
+  margin-bottom: 16px;
+  padding: 6px 12px 6px 0;
+  width: 100%;
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.registration-page .reg-form .select-group .select {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.registration-page .reg-form .t-and-c {
+  text-align: start;
+  margin-bottom: 16px;
+}
+
+.registration-page .reg-form .t-and-c .checkbox {
+  margin-right: 4px;
+}
+
+.registration-page .reg-form .checkbox-label {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.registration-page .reg-form .checkbox-label a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 700;
+}
+
+.registration-page .reg-form .alternate-auth {
+  margin-top: 16px;
+  text-align: start;
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.registration-page .reg-form .alternate-auth button {
+  border: none;
+  background-color: transparent;
+  margin-left: 4px;
+  cursor: pointer;
+  color: #007bff;
+  font-weight: 700;
+}
