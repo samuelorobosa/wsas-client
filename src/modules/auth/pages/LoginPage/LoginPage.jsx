@@ -1,17 +1,18 @@
+/* eslint-disable react/no-unescaped-entities */
 import { FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { InputGroup, PrimaryBtn, SquareCard } from '../../../../core/uikit';
 import CaptchaInput from '../../components/CaptchaInput/CaptchaInput';
 import logo from '../../../../core/assets/logo.jpeg';
 import './LoginPage.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleFirstPasswordVisibility } from '../../state/registrationSlice';
+import { togglePasswordVisibility } from '../../state/login-slice';
 import { useNavigate } from 'react-router-dom';
 import { routeNames } from '../../../../core/navigation/routenames';
 
 export default function LoginPage() {
   const suffixIconTheme = { color: '#495057' };
   const dispatch = useDispatch();
-  const { firstPasswordVisible } = useSelector((state) => state.registration);
+  const { passwordIsVisible } = useSelector((state) => state.login);
   const openRoute = useNavigate();
 
   function submitForm(e) {
@@ -47,10 +48,10 @@ export default function LoginPage() {
             <InputGroup
               placeholder="Password"
               name="password"
-              suffixIcon={firstPasswordVisible ? <FaEye /> : <FaEyeSlash /> }
+              suffixIcon={passwordIsVisible ? <FaEye /> : <FaEyeSlash /> }
               suffixIconTheme={suffixIconTheme}
-              obscureText={!firstPasswordVisible}
-              onTapSuffix={() => dispatch(toggleFirstPasswordVisibility())}
+              obscureText={!passwordIsVisible}
+              onTapSuffix={() => dispatch(togglePasswordVisibility())}
             />
             <CaptchaInput />
             <div className="forgot-password-wrap">

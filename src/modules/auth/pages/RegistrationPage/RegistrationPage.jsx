@@ -4,7 +4,7 @@ import CaptchaInput from '../../components/CaptchaInput/CaptchaInput';
 import logo from '../../../../core/assets/logo.jpeg';
 import './RegistrationPage.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleFirstPasswordVisibility, toggleSecondPasswordVisiblity } from '../../state/registrationSlice';
+import { toggleFirstPasswordVisibility, toggleSecondPasswordVisiblity } from '../../state/registration-slice';
 import { useNavigate } from 'react-router-dom';
 import { routeNames } from '../../../../core/navigation/routenames';
 
