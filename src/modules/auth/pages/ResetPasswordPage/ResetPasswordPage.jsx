@@ -1,18 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
-import { FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEnvelope } from 'react-icons/fa';
 import { InputGroup, PrimaryBtn, SquareCard } from '../../../../core/uikit';
 import CaptchaInput from '../../components/CaptchaInput/CaptchaInput';
 import logo from '../../../../core/assets/logo.jpeg';
-import './LoginPage.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { togglePasswordVisibility } from '../../state/login-slice';
+import './ResetPasswordPage.css';
 import { useNavigate } from 'react-router-dom';
 import { routeNames } from '../../../../core/navigation/routenames';
 
-export default function LoginPage() {
+export default function ResetPasswordPage() {
   const suffixIconTheme = { color: '#495057' };
-  const dispatch = useDispatch();
-  const { passwordIsVisible } = useSelector((state) => state.login);
   const openRoute = useNavigate();
 
   function submitForm(e) {
@@ -29,39 +25,25 @@ export default function LoginPage() {
     openRoute(routeNames.register);
   }
 
-  function openResetPassword() {
-    openRoute(routeNames.resetPassword);
-  }
-
   return (
-    <div className="login-page">
+    <div className="reset-password-page">
       <center>
         <div className="logo-box">
           <img className="logo" src={logo} alt="WeShopAndShip logo" />
           <h1 className="auth-page-heading">We<b>Shop</b>And<strong>Ship</strong></h1>
         </div>
         <SquareCard>
-          <form className="login-form" onSubmit={submitForm} method="post">
-            <p className="form-label">Sign in to your account</p>
+          <form className="reset-password-form" onSubmit={submitForm} method="post">
+            <p className="form-label">Reset your password</p>
             <InputGroup
               placeholder="Email"
               name="email"
               suffixIcon={<FaEnvelope />}
               suffixIconTheme={suffixIconTheme}
             />
-            <InputGroup
-              placeholder="Password"
-              name="password"
-              suffixIcon={passwordIsVisible ? <FaEye /> : <FaEyeSlash /> }
-              suffixIconTheme={suffixIconTheme}
-              obscureText={!passwordIsVisible}
-              onTapSuffix={() => dispatch(togglePasswordVisibility())}
-            />
             <CaptchaInput />
-            <div className="forgot-password-wrap">
-              <button onClick={openResetPassword} className="forgot-password">Forgot password?</button>
-            </div>
-            <PrimaryBtn text="Login" />
+            <div className="spacer" />
+            <PrimaryBtn text="Reset password" />
             <p className="alternate-auth">Don't have an account?
               <button onClick={openSignup}>Register</button>
             </p>

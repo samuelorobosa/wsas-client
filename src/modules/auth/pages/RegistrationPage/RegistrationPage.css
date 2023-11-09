@@ -74,7 +74,7 @@
   font-weight: 700;
 }
 
-.registration-page .reg-form .alternate-auth {
+.alternate-auth {
   margin-top: 16px;
   text-align: start;
   color: #666;
@@ -82,7 +82,7 @@
   line-height: 1.5rem;
 }
 
-.registration-page .reg-form .alternate-auth button {
+.alternate-auth button {
   border: none;
   background-color: transparent;
   margin-left: 4px;

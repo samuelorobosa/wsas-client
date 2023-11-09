@@ -5,6 +5,7 @@ import ProfilePage from "../../modules/user/pages/ProfilePage/ProfilePage";
 import EventHistoryPage from "../../modules/user/pages/EventHistoryPage/EventHistoryPage";
 import RegistrationPage from "../../modules/auth/pages/RegistrationPage/RegistrationPage";
 import LoginPage from "../../modules/auth/pages/LoginPage/LoginPage";
+import ResetPasswordPage from "../../modules/auth/pages/ResetPasswordPage/ResetPasswordPage";
 
 const appRouter = createBrowserRouter([
   {
@@ -30,12 +31,16 @@ const appRouter = createBrowserRouter([
     ]
   },
   {
+    path: routeNames.login,
+    element: <LoginPage />,
+  },
+  {
     path: routeNames.register,
     element: <RegistrationPage />,
   },
   {
-    path: routeNames.login,
-    element: <LoginPage />,
+    path: routeNames.resetPassword,
+    element: <ResetPasswordPage />,
   }
 ]);
 

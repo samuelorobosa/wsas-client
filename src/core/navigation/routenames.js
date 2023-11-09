@@ -15,5 +15,6 @@ export const routeNames = {
   dashboard: '/dashboard',
   home: '/',
   login: '/login',
-  register: '/register'
+  register: '/register',
+  resetPassword: '/reset-password',
 }
