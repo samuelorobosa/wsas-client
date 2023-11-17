@@ -2,140 +2,16 @@ import uuid from 'react-uuid';
 import './AllOrders.css';
 import { FaSearch } from 'react-icons/fa';
 import OrdersTable from '../../components/OrdersTable/OrdersTable';
-import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 export default function AllOrders() {
-  const orderCategories = [
-    'Items in cart',
-    'Pending',
-    'Processing',
-    'Processed',
-    'Received',
-    'Shipped'
-  ];
-  const orders = useMemo(() => [
-    {
-      serialNumber: 1,
-      productLink: 'https://order-link.com/orders/randomnumber',
-      id: 'orderid',
-      unitPrice: 20000,
-      quantity: 5,
-      subTotal: 100000,
-      fee: 5000,
-      total: 105000,
-      action: 'del',
-    },
-    {
-      serialNumber: 2,
-      productLink: 'https://order-link.com/orders/randomnumber',
-      id: 'orderid',
-      unitPrice: 20000,
-      quantity: 5,
-      subTotal: 100000,
-      fee: 5000,
-      total: 105000,
-      action: 'del',
-    },
-    {
-      serialNumber: 3,
-      productLink: 'https://order-link.com/orders/randomnumber',
-      id: 'orderid',
-      unitPrice: 20000,
-      quantity: 5,
-      subTotal: 100000,
-      fee: 5000,
-      total: 105000,
-      action: 'del',
-    },
-    {
-      serialNumber: 4,
-      productLink: 'https://order-link.com/orders/randomnumber',
-      id: 'orderid',
-      unitPrice: 20000,
-      quantity: 5,
-      subTotal: 100000,
-      fee: 5000,
-      total: 105000,
-      action: 'del',
-    },
-    {
-      serialNumber: 5,
-      productLink: 'https://order-link.com/orders/randomnumber',
-      id: 'orderid',
-      unitPrice: 20000,
-      quantity: 5,
-      subTotal: 100000,
-      fee: 5000,
-      total: 105000,
-      action: 'del',
-    },
-    {
-      serialNumber: 6,
-      productLink: 'https://order-link.com/orders/randomnumber',
-      id: 'orderid',
-      unitPrice: 20000,
-      quantity: 5,
-      subTotal: 100000,
-      fee: 5000,
-      total: 105000,
-      action: 'del',
-    },
-    {
-      serialNumber: 7,
-      productLink: 'https://order-link.com/orders/randomnumber',
-      id: 'orderid',
-      unitPrice: 20000,
-      quantity: 5,
-      subTotal: 100000,
-      fee: 5000,
-      total: 105000,
-      action: 'del',
-    },
-    {
-      serialNumber: 8,
-      productLink: 'https://order-link.com/orders/randomnumber',
-      id: 'orderid',
-      unitPrice: 20000,
-      quantity: 5,
-      subTotal: 100000,
-      fee: 5000,
-      total: 105000,
-      action: 'del',
-    },
-    {
-      serialNumber: 9,
-      productLink: 'https://order-link.com/orders/randomnumber',
-      id: 'orderid',
-      unitPrice: 20000,
-      quantity: 5,
-      subTotal: 100000,
-      fee: 5000,
-      total: 105000,
-      action: 'del',
-    },
-    {
-      serialNumber: 10,
-      productLink: 'https://order-link.com/orders/randomnumber',
-      id: 'orderid',
-      unitPrice: 20000,
-      quantity: 5,
-      subTotal: 100000,
-      fee: 5000,
-      total: 105000,
-      action: 'del',
-    },
-    {
-      serialNumber: 11,
-      productLink: 'https://order-link.com/orders/randomnumber',
-      id: 'orderid',
-      unitPrice: 20000,
-      quantity: 5,
-      subTotal: 100000,
-      fee: 5000,
-      total: 105000,
-      action: 'del',
-    },
-  ], []);
+  const { orderCategories, orders } = useSelector((state) => state.orders);
+  const [currentTabIdx, setTabIdx] = useState(0);
+
+  const onChangeInput = (e) => {
+    console.log(e.target.value);
+  }
 
   return (
     <div className="all-orders">
@@ -145,19 +21,28 @@ export default function AllOrders() {
       <main className="orders-content">
         <ul className="order-tabs">
           {
-            orderCategories.map((category) => (
-              <li key={uuid()} className={`tab ${category}`}>
-                <button className="text">{category}</button>
+            orderCategories.map(({name}, idx) => (
+              <li key={uuid()} className={`tab ${name}`}>
+                <button
+                  onClick={() => setTabIdx(idx)}
+                  className={`order-tab-btn ${currentTabIdx === idx && 'active'}`}
+                >
+                  {name}
+                </button>
               </li>
             ))
           }
         </ul>
-        <section className="toolbar">
+        <nav className="toolbar">
           <div className="search-box">
-            <input type="text" placeholder="Search by order id" />
+            <input
+              type="text"
+              placeholder="Search by order id"
+              onInput={onChangeInput}
+            />
             <FaSearch />
           </div>
-        </section>
+        </nav>
         <section className="orders-table">
           <OrdersTable orders={orders} />
         </section>
