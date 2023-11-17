@@ -6,6 +6,7 @@ import EventHistoryPage from "../../modules/user/pages/EventHistoryPage/EventHis
 import RegistrationPage from "../../modules/auth/pages/RegistrationPage/RegistrationPage";
 import LoginPage from "../../modules/auth/pages/LoginPage/LoginPage";
 import ResetPasswordPage from "../../modules/auth/pages/ResetPasswordPage/ResetPasswordPage";
+import AllOrders from "../../modules/order-management/pages/AllOrders/AllOrders";
 
 const appRouter = createBrowserRouter([
   {
@@ -17,12 +18,16 @@ const appRouter = createBrowserRouter([
     element: <DashboardPage />,
     children: [
       {
-        path: subRouteNames.profile,
-        element: <ProfilePage />,
-      },
-      {
         path: subRouteNames.eventHistory,
         element: <EventHistoryPage />,
+      },
+      {
+        path: subRouteNames.orders,
+        element: <AllOrders />,
+      },
+      {
+        path: subRouteNames.profile,
+        element: <ProfilePage />,
       },
       {
         path: '*',

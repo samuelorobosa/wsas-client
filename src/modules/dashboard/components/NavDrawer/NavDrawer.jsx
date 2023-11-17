@@ -62,7 +62,7 @@ export default function NavDrawer() {
       ],
     },
     {
-      title: 'Procurement',
+      title: 'Order Management',
       key: 2,
       icon: <FaShoppingCart />,
       links: [
@@ -71,7 +71,7 @@ export default function NavDrawer() {
           path: subRouteNames.linksManager,
         },
         {
-          title: '1688 Order',
+          title: 'Orders',
           path: subRouteNames.orders,
         },
         {
