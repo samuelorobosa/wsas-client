@@ -6,16 +6,15 @@ import './RegistrationPage.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { routeNames } from '../../../../core/navigation/routenames';
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {getCountriesThunk} from "../../authThunks.js";
 
 export default function RegistrationPage() {
   const [firstPasswordVisible, setFirstPasswordVisible] = useState(false);
   const [secondPasswordVisible, setSecondPasswordVisible] = useState(false);
+  const { countries } = useSelector(state => state.auth);
   const suffixIconTheme = { color: '#495057' };
-  const countryOptions = [
-    { name: 'Nigeria', value: 'ng' },
-    { name: 'United Kingdom', value: 'uk' },
-  ];
+  const countryOptions = countries.map(({ name, cioc }) => ({ name, value: cioc }));
   const dispatch = useDispatch();
   const openPage = useNavigate();
 
@@ -32,6 +31,13 @@ export default function RegistrationPage() {
   function openLogin() {
     openPage(routeNames.login);
   }
+
+  useEffect(() => {
+    const data = {
+      fields: 'name,cioc'
+    }
+    dispatch(getCountriesThunk(data));
+  }, []);
 
   return (
     <div className="registration-page">

@@ -52,6 +52,8 @@
   top: 50px;
   background-color: white;
   border: solid 1px rgb(206, 212, 218);
+  height: 13rem;
+  overflow: scroll;
 }
 
 .custom-select-field .dropdown .option-list {
