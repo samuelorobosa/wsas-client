@@ -2,11 +2,20 @@
     padding: 1rem;
 }
 
+.exchange__rate__section{
+    width: 90%;
+    margin: 0 auto 2rem auto;
+    display: grid;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
 .profile-page{
     width: 90%;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 20% 1fr;
+    grid-template-columns: 1fr;
     background-color: #fff;
     border-radius: 12px;
 }
@@ -14,9 +23,8 @@
 aside.actions__section{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     padding: 1rem 1rem;
-    row-gap: 1.2rem;
+    row-gap: .5rem;
     border-right: 1px solid #DFE6EC;
 }
 
@@ -61,6 +69,15 @@ aside.content__section .content__section__body{
 
 section.content__section__body .user__profile {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem;
+    column-gap: 1.2rem;
+}
+
+section.content__section__body .user__profile .user__profile__left {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 1.2rem;
     column-gap: 1.2rem;
@@ -106,8 +123,89 @@ section.content__section__body .user__profile .user__profile__content .user__pro
     column-gap: 1.2rem;
 }
 
+.content__section__body form .form__final{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    column-gap: 1.2rem;
+}
+
 .content__section__body form .form__sections .form-group-input,
 .content__section__body form .form__sections .form-group-input .react-tel-input input {
     width: 100%;
 }
 
+.non__editable__form .personal__information .details__container{
+    display: flex;
+    flex-direction: row;
+    column-gap: 4.3rem;
+}
+
+.non__editable__form .shipping__address .details__container{
+    display: flex;
+    flex-direction: column;
+}
+
+.non__editable__form .shipping__address .details__container p{
+    font-size: 13px;
+    margin-bottom: 2.5rem;
+}
+
+.non__editable__form .shipping__address .details__container .details__container__stats{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.non__editable__form .shipping__address .details__container .details__container__stats > div{
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+}
+
+.non__editable__form .shipping__address .details__container .details__container__stats > div span:first-child{
+    font-size: 24px;
+    color: #23272E;
+    font-weight: 600;
+}
+
+.non__editable__form .shipping__address .details__container .details__container__stats > div span:last-child{
+    color: #8B909A;
+}
+
+section.non__editable__form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100%;
+    margin-top: 2rem;
+}
+
+section.non__editable__form .personal__information{
+    border-right: 1px solid #DBDADE;
+    border-radius: 4px;
+}
+
+section.non__editable__form .shipping__address{
+   padding-left: 2rem;
+}
+
+section.non__editable__form .personal__information .header,
+section.non__editable__form .shipping__address .header{
+    color: #8B909A;
+    font-size: 12px;
+    margin-bottom: 1.5rem;
+}
+
+
+section.non__editable__form .personal__information  p{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 12px;
+    row-gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+section.non__editable__form .personal__information  p span:last-child{
+    text-align: left;
+}

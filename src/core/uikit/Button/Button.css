@@ -1,0 +1,23 @@
+button.btn{
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 14px 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: unset;
+    border: none;
+    cursor: pointer;
+}
+
+button.btn-secondary{
+    background-color: #F7F9FC;
+    color: #2772F0;
+}
+
+button.btn-main{
+    background-color: #2772F0;
+    color: #fff;
+}
+
+

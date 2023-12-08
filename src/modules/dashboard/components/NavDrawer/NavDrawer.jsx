@@ -25,14 +25,6 @@ export default function NavDrawer() {
           path: subRouteNames.profile,
         },
         {
-          title: 'ChrisvicmallBot',
-          path: 'chrisvicmallbot',
-        },
-        {
-          title: 'My China Address',
-          path: 'mychinaaddress',
-        },
-        {
           title: 'Event History',
           path: subRouteNames.eventHistory,
         },
@@ -62,32 +54,17 @@ export default function NavDrawer() {
       ],
     },
     {
-      title: 'Order Management',
+      title: 'Procurement',
       key: 2,
       icon: <FaShoppingCart />,
       links: [
-        {
-          title: 'Links Manager',
-          path: subRouteNames.linksManager,
-        },
         {
           title: 'Orders',
           path: subRouteNames.orders,
         },
         {
-          title: 'Other sites/Pay Supplier',
+          title: 'Pay Supplier',
           path: 'other-sites',
-        },
-      ],
-    },
-    {
-      title: 'Stock Products',
-      key: 3,
-      icon: <FaShoppingBag />,
-      links: [
-        {
-          title: 'Nigeria Stock Products',
-          path: 'stock-products',
         },
       ],
     },
@@ -101,11 +78,11 @@ export default function NavDrawer() {
           path: subRouteNames.shippingAddresses,
         },
         {
-          title: 'Ng Logistics Request',
+          title: 'Request Shipping',
           path: 'logistics-requests',
         },
         {
-          title: 'China Shipping Request',
+          title: 'Express Courier Service',
           path: 'china-shipping-requests',
         },
       ],
@@ -116,7 +93,11 @@ export default function NavDrawer() {
       icon: <FaAddressCard />,
       links: [
         {
-          title: 'Create Ticket',
+          title: 'Live Chat',
+          path: subRouteNames.createTicket,
+        },
+        {
+          title: 'Whatsapp',
           path: subRouteNames.createTicket,
         },
       ],
