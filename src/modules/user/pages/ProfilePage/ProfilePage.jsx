@@ -4,10 +4,11 @@ import './ProfilePage.css';
 import {FaEye, FaEyeSlash, FaUser} from "react-icons/fa";
 import userProfile from '../../../../core/assets/user_profile.svg';
 import {InputGroup} from "../../../../core/uikit/index.js";
-import {MdEmail, MdOutlineTimeline} from "react-icons/md";
+import {MdEmail} from "react-icons/md";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Button from "../../../../core/uikit/Button/Button.jsx";
+import {IoIosSwap} from "react-icons/io";
 
 export default function ProfilePage() {
   const [editMode, enableEditMode] = useState(false);
@@ -25,9 +26,9 @@ export default function ProfilePage() {
       <nav className="appbar">
         <h1 className="appbar-title">User Profile</h1>
       </nav>
-      <section className="exchange__rate__section">
-          <p>Today's exchange rate</p>
-      </section>
+
+        { <ProfilePage.ExchangeRateSection /> }
+
       <main className="profile-page">
           <aside className="content__section">
               <header>
@@ -198,3 +199,24 @@ ProfilePage.NonEditableForm = () => {
   )
 }
 
+
+ProfilePage.ExchangeRateSection = () => {
+  return (
+    <section className="exchange__rate__section">
+      <header>Today's exchange rate</header>
+        <div className="exchange__rate__section__body">
+            <div className="exchange__rate__section__body__left">
+                <div className="exchange__rate__section__body__title">£</div>
+                <div className="exchange__rate__section__body__value">1.00</div>
+            </div>
+            <div className="exchange__rate__section__body__center">
+                <IoIosSwap />
+            </div>
+            <div className="exchange__rate__section__body__right">
+                <div className="exchange__rate__section__body__title">₦</div>
+                <div className="exchange__rate__section__body__value">450.00</div>
+            </div>
+        </div>
+    </section>
+  )
+}

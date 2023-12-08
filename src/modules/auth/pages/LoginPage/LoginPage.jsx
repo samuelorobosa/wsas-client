@@ -5,14 +5,14 @@ import CaptchaInput from '../../components/CaptchaInput/CaptchaInput';
 import logo from '../../../../core/assets/logo.jpeg';
 import './LoginPage.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { togglePasswordVisibility } from '../../state/login-slice';
 import { useNavigate } from 'react-router-dom';
 import { routeNames } from '../../../../core/navigation/routenames';
+import {useState} from "react";
 
 export default function LoginPage() {
+  const [passwordIsVisible, setPasswordIsVisible] = useState(false);
   const suffixIconTheme = { color: '#495057' };
   const dispatch = useDispatch();
-  const { passwordIsVisible } = useSelector((state) => state.login);
   const openRoute = useNavigate();
 
   function submitForm(e) {
@@ -55,7 +55,7 @@ export default function LoginPage() {
               suffixIcon={passwordIsVisible ? <FaEye /> : <FaEyeSlash /> }
               suffixIconTheme={suffixIconTheme}
               obscureText={!passwordIsVisible}
-              onTapSuffix={() => dispatch(togglePasswordVisibility())}
+              onTapSuffix={() => setPasswordIsVisible(!passwordIsVisible)}
             />
             <CaptchaInput />
             <div className="forgot-password-wrap">

@@ -11,6 +11,11 @@
     padding: 1rem;
 }
 
+.exchange__rate__section header{
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
 .profile-page{
     width: 90%;
     margin: 0 auto;
@@ -208,4 +213,38 @@ section.non__editable__form .personal__information  p{
 
 section.non__editable__form .personal__information  p span:last-child{
     text-align: left;
+}
+
+.exchange__rate__section__body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1.3rem;
+    border-radius: 12px;
+    background-color: #F7F9FC;
+    margin-top: 1rem;
+}
+
+.exchange__rate__section__body__center{
+   background-color: #2772F0;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 50%;
+}
+
+.exchange__rate__section__body__left,
+.exchange__rate__section__body__right{
+    display: flex;
+    flex-direction: row;
+    column-gap: .2rem;
+    align-items: center;
+}
+
+.exchange__rate__section__body .exchange__rate__section__body__value{
+    font-size: 1.9rem;
+    font-weight: 600;
 }

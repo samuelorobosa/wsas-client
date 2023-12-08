@@ -4,18 +4,19 @@ import CaptchaInput from '../../components/CaptchaInput/CaptchaInput';
 import logo from '../../../../core/assets/logo.jpeg';
 import './RegistrationPage.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleFirstPasswordVisibility, toggleSecondPasswordVisiblity } from '../../state/registration-slice';
 import { useNavigate } from 'react-router-dom';
 import { routeNames } from '../../../../core/navigation/routenames';
+import {useState} from "react";
 
 export default function RegistrationPage() {
+  const [firstPasswordVisible, setFirstPasswordVisible] = useState(false);
+  const [secondPasswordVisible, setSecondPasswordVisible] = useState(false);
   const suffixIconTheme = { color: '#495057' };
   const countryOptions = [
     { name: 'Nigeria', value: 'ng' },
     { name: 'United Kingdom', value: 'uk' },
   ];
   const dispatch = useDispatch();
-  const { firstPasswordVisible, secondPasswordVisible } = useSelector((state) => state.registration);
   const openPage = useNavigate();
 
   function submitForm(e) {
@@ -72,7 +73,7 @@ export default function RegistrationPage() {
               suffixIcon={firstPasswordVisible ? <FaEye /> : <FaEyeSlash /> }
               suffixIconTheme={suffixIconTheme}
               obscureText={!firstPasswordVisible}
-              onTapSuffix={() => dispatch(toggleFirstPasswordVisibility())}
+              onTapSuffix={() => setFirstPasswordVisible(!firstPasswordVisible)}
             />
             <InputGroup
               placeholder="Confirm Password"
@@ -80,7 +81,7 @@ export default function RegistrationPage() {
               suffixIcon={secondPasswordVisible ? <FaEye /> : <FaEyeSlash /> }
               suffixIconTheme={suffixIconTheme}
               obscureText={!secondPasswordVisible}
-              onTapSuffix={() => dispatch(toggleSecondPasswordVisiblity())}
+              onTapSuffix={() => setSecondPasswordVisible(!secondPasswordVisible)}
             />
             <CustomSelectField options={countryOptions} />
             <InputGroup

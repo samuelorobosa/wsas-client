@@ -37,7 +37,7 @@ const captchaService = {
   },
 
   getOperatorString(index) {
-    return index == 0 ? '+' : 'x';
+    return index === 0 ? '+' : 'x';
   },
 };
 
