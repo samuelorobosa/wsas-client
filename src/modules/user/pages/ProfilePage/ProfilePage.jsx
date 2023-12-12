@@ -8,19 +8,16 @@ import {MdEmail} from "react-icons/md";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Button from "../../../../core/uikit/Button/Button.jsx";
-import {IoIosSwap} from "react-icons/io";
+import {IoIosSwap, IoMdNotificationsOutline} from "react-icons/io";
+import Modal from "../../../../core/uikit/Modal/Modal.jsx";
+import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler.js";
 
 export default function ProfilePage() {
   const [editMode, enableEditMode] = useState(false);
   const [name] = useState('John Doe');
   const [email] = useState('johndoe@gmail.com');
-  // const tab__actions = [
-  //     "Edit Profile",
-  //     "Preferences",
-  //     "Security",
-  //     "Linked Accounts",
-  //     "Log Out"
-  // ]
+  const [modalOpen, setModalOpen] = useState(false)
+  const openModal = () => setModalOpen(!modalOpen);
   return (
     <>
       <nav className="appbar">
@@ -32,7 +29,35 @@ export default function ProfilePage() {
       <main className="profile-page">
           <aside className="content__section">
               <header>
-                  {editMode ? "Edit Profile" : "Personal Information"}
+                  <span>{editMode ? "Edit Profile" : "Personal Information"}</span>
+                  <figure onClick={() => openModal()}>
+                      <IoMdNotificationsOutline size={30} />
+                  </figure>
+                  <Modal open = {modalOpen} className="profile__notification__modal">
+                          <OutsideClickHandler
+                              onOutsideClick={() => {
+                                  setModalOpen(false)
+                              }}>
+                                  <div className="notification__item">
+                                      <figure>
+                                          <img src={userProfile} alt="user__image"/>
+                                      </figure>
+                                      <aside>
+                                          <p>Zaynab Azzahra recommended this online store to buy electronics</p>
+                                          <span>1 minutes ago &#8226; Electronics</span>
+                                      </aside>
+                                  </div>
+                                  <div className="notification__item">
+                                      <figure>
+                                          <img src={userProfile} alt="user__image"/>
+                                      </figure>
+                                      <aside>
+                                          <p>Zaynab Azzahra recommended this online store to buy electronics</p>
+                                          <span>1 minutes ago &#8226; Electronics</span>
+                                      </aside>
+                                  </div>
+                          </OutsideClickHandler>
+                      </Modal>
               </header>
               <section className="content__section__body">
                     <div className="user__profile">
