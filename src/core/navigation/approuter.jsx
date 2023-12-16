@@ -7,6 +7,7 @@ import RegistrationPage from "../../modules/auth/pages/RegistrationPage/Registra
 import LoginPage from "../../modules/auth/pages/LoginPage/LoginPage";
 import ResetPasswordPage from "../../modules/auth/pages/ResetPasswordPage/ResetPasswordPage";
 import AllOrders from "../../modules/order-management/pages/AllOrders/AllOrders";
+import AddFunds from "../../modules/user/pages/AddFunds/AddFunds.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const appRouter = createBrowserRouter([
       {
         path: subRouteNames.profile,
         element: <ProfilePage />,
+      },
+      {
+        path: subRouteNames.addFunds,
+        element: <AddFunds />,
       },
       {
         path: '*',
