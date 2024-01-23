@@ -1,0 +1,98 @@
+.appbar-title{
+    padding: 1rem;
+}
+
+.withdraw_funds_form{
+    background-color: white;
+    width: 90%;
+    border-radius: 12px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.withdraw_funds_form .form-group{
+    display: flex;
+    flex-direction: column;
+    row-gap: .3rem;
+    align-items: baseline;
+    margin-bottom: 1.1rem;
+}
+
+.withdraw_funds_form .form-group:last-child{
+    align-self: flex-end;
+}
+
+
+table.payment__history {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 2rem auto;
+    border-radius: 12px;
+    background-color: white;
+}
+
+.payment__history th, .payment__history td {
+    padding: 12px;
+    text-align: left;
+}
+
+.payment__history th{
+    color: #B0B7C3;
+}
+
+.payment__history thead{
+    border-bottom: 1px solid #EAEFF3;;
+}
+
+.tabs {
+    display: flex;
+    width: 90%;
+    margin: 0 auto 2rem;
+    background-color: white;
+    padding: .3rem .3rem;
+    border-radius: 12px;
+}
+
+.tabs button {
+    border: 1px solid #ddd;
+    padding: 10px;
+    cursor: pointer;
+    background-color: unset;
+    border: unset;
+    border-radius: 12px;
+    color: #B0B7C3;
+}
+
+.tabs button.active {
+    background-color: #2772F0;
+    color: white;
+}
+
+
+@media (max-width: 600px) {
+    table {
+        border: 0;
+    }
+
+    table thead {
+        display: none;
+    }
+
+    table tr {
+        margin-bottom: 10px;
+        display: block;
+        border: 1px solid #ddd;
+    }
+
+    table td {
+        display: block;
+        text-align: right;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        float: left;
+    }
+}
+
+

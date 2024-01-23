@@ -64,7 +64,7 @@ export default function NavDrawer() {
         },
         {
           title: 'Pay Supplier',
-          path: 'other-sites',
+          path: subRouteNames.paySupplier,
         },
       ],
     },
@@ -79,11 +79,11 @@ export default function NavDrawer() {
         },
         {
           title: 'Request Shipping',
-          path: 'logistics-requests',
+          path: subRouteNames.requestShipping,
         },
         {
           title: 'Express Courier Service',
-          path: 'china-shipping-requests',
+          path: subRouteNames.requestExpressCourierService,
         },
       ],
     },
@@ -92,10 +92,6 @@ export default function NavDrawer() {
       key: 5,
       icon: <FaAddressCard />,
       links: [
-        {
-          title: 'Live Chat',
-          path: subRouteNames.createTicket,
-        },
         {
           title: 'Whatsapp',
           path: subRouteNames.createTicket,

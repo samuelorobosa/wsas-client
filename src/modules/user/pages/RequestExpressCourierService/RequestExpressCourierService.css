@@ -1,0 +1,24 @@
+.appbar-title{
+    padding: 1rem;
+}
+
+
+.express__courier__service__content{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.express__courier__service__form{
+    background-color: white;
+    border-radius: 12px;
+    margin-top: 2rem;
+    padding: 1rem;
+}
+
+.express__courier__service__form .form-group{
+    display: flex;
+    flex-direction: column;
+    row-gap: .3rem;
+    align-items: baseline;
+    margin-bottom: 1.1rem;
+}

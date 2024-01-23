@@ -27,6 +27,7 @@
   font-weight: 400;
   line-height: 1.5;
   color: #495057;
+  background-color: inherit;
 }
 
 .input-group-alt .input-group-input::placeholder,

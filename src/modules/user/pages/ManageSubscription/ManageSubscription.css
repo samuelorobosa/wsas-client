@@ -1,0 +1,19 @@
+.manage__subscription__form{
+    background-color: white;
+    width: 90%;
+    border-radius: 12px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.manage__subscription__form .form-group{
+    display: flex;
+    flex-direction: column;
+    row-gap: .3rem;
+    align-items: baseline;
+    margin-bottom: 1.1rem;
+}
+
+.manage__subscription__form .form-group:last-child{
+    align-self: flex-end;
+}

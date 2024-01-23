@@ -4,7 +4,7 @@ import './CustomSelectField.css';
 import uuid from 'react-uuid';
 import { FaChevronDown } from 'react-icons/fa';
 
-export default function CustomSelectField({ options, onChange = () => {} }) {
+export default function CustomSelectField({ options, onChange = () => {}, placeholder= "Select Country" }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -18,7 +18,7 @@ export default function CustomSelectField({ options, onChange = () => {} }) {
     <div className="custom-select-field">
       <div className="head">
         <button className={`select-btn ${selectedOption && 'selected'}`} onClick={() => setIsOpen((current) => !current)}>
-          {selectedOption? selectedOption.name : 'Select Country'}
+          {selectedOption? selectedOption.name : placeholder}
         </button>
         <div className={`icon-wrap ${isOpen && 'is-open'}`}>
           <FaChevronDown />

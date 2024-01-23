@@ -128,14 +128,12 @@ AddFunds.ngnBank = () => {
                         <label htmlFor="amount">
                             Preferred Bank
                         </label>
-                        <CustomSelectField options={[
+                        <CustomSelectField
+                            placeholder="Select Bank"
+                            options={[
                             {
-                                name: "GTBank",
-                                value: "gtbank"
-                            },
-                            {
-                                name: "Opay",
-                                value: "opay"
+                                name: "Zenith Bank",
+                                value: "zenith"
                             },
                         ]}/>
                     </div>
@@ -224,7 +222,9 @@ AddFunds.PaymentHistoryCardPayment = () => {
             <tr>
                 <th>Transaction ID</th>
                 <th>Amount Paid</th>
+                <th>Amount Credited</th>
                 <th>Date</th>
+                <th>Exchange Rate</th>
                 <th>Action</th>
                 <th>Status</th>
             </tr>
@@ -233,15 +233,19 @@ AddFunds.PaymentHistoryCardPayment = () => {
             <tr>
                 <td data-label="S/N">xxxx</td>
                 <td data-label="Amount Paid">$100</td>
+                <td data-label="Amount Credited">120,000</td>
                 <td data-label="Date">2023-01-01</td>
-                <td data-label="Update">Edit</td>
+                <td data-label="Exchange Rate">$1 = 1,200</td>
+                <td data-label="Action">Edit</td>
                 <td data-label="Status">Pending</td>
             </tr>
             <tr>
                 <td data-label="S/N">xxxx</td>
                 <td data-label="Amount Paid">$100</td>
+                <td data-label="Amount Credited">120,000</td>
                 <td data-label="Date">2023-01-01</td>
-                <td data-label="Update">Edit</td>
+                <td data-label="Exchange Rate">$1 = 1,200</td>
+                <td data-label="Action">Edit</td>
                 <td data-label="Status">Pending</td>
             </tr>
             </tbody>
@@ -250,42 +254,14 @@ AddFunds.PaymentHistoryCardPayment = () => {
 }
 
 AddFunds.cardPayment = () => {
-    return(
+    return (
         <>
             <section className="add_funds_form">
                 <form onSubmit={(e) => e.preventDefault()}>
                     <div className="form-group">
-                        <label htmlFor="amount">Payer's Name</label>
-                        <InputGroupAlt
-                            name="payer_name"
-                        />
-                    </div>
-
-                    <div className="form-group">
                         <label htmlFor="amount">Amount</label>
                         <InputGroupAlt
                             name="amount"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="amount">
-                            Preferred Bank
-                        </label>
-                        <CustomSelectField options={[
-                            {
-                                name: "GTBank",
-                                value: "gtbank"
-                            },
-                            {
-                                name: "Opay",
-                                value: "opay"
-                            },
-                        ]}/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="amount">Date Paid</label>
-                        <InputGroupAlt
-                            name="date_paid"
                         />
                     </div>
                     <div className="form-group">

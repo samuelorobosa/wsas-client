@@ -8,6 +8,14 @@ import LoginPage from "../../modules/auth/pages/LoginPage/LoginPage";
 import ResetPasswordPage from "../../modules/auth/pages/ResetPasswordPage/ResetPasswordPage";
 import AllOrders from "../../modules/order-management/pages/AllOrders/AllOrders";
 import AddFunds from "../../modules/user/pages/AddFunds/AddFunds.jsx";
+import WithdrawFunds from "../../modules/user/pages/WithdrawFunds/WithdrawFunds.jsx";
+import TransactionHistory from "../../modules/user/pages/TransactionHistory/TransactionHistory.jsx";
+import ManageSubscription from "../../modules/user/pages/ManageSubscription/ManageSubscription.jsx";
+import PaySupplier from "../../modules/user/pages/PaySupplier/PaySupplier.jsx";
+import ShippingAddressBook from "../../modules/user/pages/ShippingAddressBook/ShippingAddressBook.jsx";
+import RequestShipping from "../../modules/user/pages/RequestShipping/RequestShipping.jsx";
+import RequestExpressCourierService
+  from "../../modules/user/pages/RequestExpressCourierService/RequestExpressCourierService.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -33,6 +41,34 @@ const appRouter = createBrowserRouter([
       {
         path: subRouteNames.addFunds,
         element: <AddFunds />,
+      },
+      {
+        path: subRouteNames.withdrawFunds,
+        element: <WithdrawFunds />,
+      },
+      {
+        path: subRouteNames.transactionHistory,
+        element: <TransactionHistory />,
+      },
+      {
+        path: subRouteNames.manageSubscription,
+        element: <ManageSubscription />,
+      },
+      {
+        path: subRouteNames.paySupplier,
+        element: <PaySupplier />,
+      },
+      {
+        path: subRouteNames.shippingAddresses,
+        element: <ShippingAddressBook />,
+      },
+      {
+        path: subRouteNames.requestShipping,
+        element: <RequestShipping />,
+      },
+      {
+        path: subRouteNames.requestExpressCourierService,
+        element: <RequestExpressCourierService />,
       },
       {
         path: '*',
