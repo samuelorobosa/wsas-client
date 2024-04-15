@@ -1,6 +1,6 @@
 export const getBaseUrlFromEnv = () => {
     const urlFromEnvironment = {
-        development: 'development-url',
+        development: 'https://xlaux-b3b674c8b7d0.herokuapp.com',
         production: 'production-url',
         testing: 'testing-url',
     }

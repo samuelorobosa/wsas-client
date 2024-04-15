@@ -1,20 +1,28 @@
 import { FaEnvelope, FaEye, FaEyeSlash, FaPhone, FaUser } from 'react-icons/fa';
-import { CustomSelectField, InputGroup, PrimaryBtn, SquareCard } from '../../../../core/uikit';
+import {
+  CustomSelectField,
+  InputGroup,
+  PrimaryBtn,
+  SquareCard,
+} from '../../../../core/uikit';
 import CaptchaInput from '../../components/CaptchaInput/CaptchaInput';
 import logo from '../../../../core/assets/logo.jpeg';
 import './RegistrationPage.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { routeNames } from '../../../../core/navigation/routenames';
-import {useEffect, useState} from "react";
-import {getCountriesThunk} from "../../authThunks.js";
+import { useEffect, useState } from 'react';
+import { getCountriesThunk } from '../../authThunks.js';
 
 export default function RegistrationPage() {
   const [firstPasswordVisible, setFirstPasswordVisible] = useState(false);
   const [secondPasswordVisible, setSecondPasswordVisible] = useState(false);
-  const { countries } = useSelector(state => state.auth);
+  const { countries } = useSelector((state) => state.auth);
   const suffixIconTheme = { color: '#495057' };
-  const countryOptions = countries.map(({ name, cioc }) => ({ name, value: cioc }));
+  const countryOptions = countries.map(({ name, cioc }) => ({
+    name,
+    value: cioc,
+  }));
   const dispatch = useDispatch();
   const openPage = useNavigate();
 
@@ -34,8 +42,8 @@ export default function RegistrationPage() {
 
   useEffect(() => {
     const data = {
-      fields: 'name,cioc'
-    }
+      fields: 'name,cioc',
+    };
     dispatch(getCountriesThunk(data));
   }, []);
 
@@ -44,18 +52,20 @@ export default function RegistrationPage() {
       <center>
         <div className="logo-box">
           <img className="logo" src={logo} alt="WeShopAndShip logo" />
-          <h1 className="auth-page-heading">We<b>Shop</b>And<strong>Ship</strong></h1>
+          <h1 className="auth-page-heading">
+            We<b>Shop</b>And<strong>Ship</strong>
+          </h1>
         </div>
         <SquareCard>
           <form className="reg-form" onSubmit={submitForm} method="post">
             <p className="form-label">Create a new account</p>
             <InputGroup
-              placeholder="Full Name"
-              name="fullName"
+              placeholder="First Name"
+              name="firstName"
               suffixIcon={<FaUser />}
               suffixIconTheme={suffixIconTheme}
             />
-            {/* <InputGroup
+            <InputGroup
               placeholder="Last Name"
               name="lastName"
               suffixIcon={<FaUser />}
@@ -66,7 +76,7 @@ export default function RegistrationPage() {
               name="username"
               suffixIcon={<FaUser />}
               suffixIconTheme={suffixIconTheme}
-            /> */}
+            />
             <InputGroup
               placeholder="Email"
               name="email"
@@ -76,7 +86,7 @@ export default function RegistrationPage() {
             <InputGroup
               placeholder="Password"
               name="password"
-              suffixIcon={firstPasswordVisible ? <FaEye /> : <FaEyeSlash /> }
+              suffixIcon={firstPasswordVisible ? <FaEye /> : <FaEyeSlash />}
               suffixIconTheme={suffixIconTheme}
               obscureText={!firstPasswordVisible}
               onTapSuffix={() => setFirstPasswordVisible(!firstPasswordVisible)}
@@ -84,10 +94,12 @@ export default function RegistrationPage() {
             <InputGroup
               placeholder="Confirm Password"
               name="confirmPassword"
-              suffixIcon={secondPasswordVisible ? <FaEye /> : <FaEyeSlash /> }
+              suffixIcon={secondPasswordVisible ? <FaEye /> : <FaEyeSlash />}
               suffixIconTheme={suffixIconTheme}
               obscureText={!secondPasswordVisible}
-              onTapSuffix={() => setSecondPasswordVisible(!secondPasswordVisible)}
+              onTapSuffix={() =>
+                setSecondPasswordVisible(!secondPasswordVisible)
+              }
             />
             <CustomSelectField options={countryOptions} />
             <InputGroup
@@ -98,21 +110,27 @@ export default function RegistrationPage() {
             />
             <CaptchaInput />
             <div className="t-and-c">
-              <input className="checkbox" type="checkbox" id="agreedToTerms" name="agreedToTerms" />
+              <input
+                className="checkbox"
+                type="checkbox"
+                id="agreedToTerms"
+                name="agreedToTerms"
+              />
               <label htmlFor="agreedToTerms" className="checkbox-label">
                 {'I agree to the '}
                 <span>
-                  <a href='#'>terms and conditions</a>
+                  <a href="#">terms and conditions</a>
                 </span>
               </label>
             </div>
             <PrimaryBtn text="Register" />
-            <p className="alternate-auth">Already have an account?
+            <p className="alternate-auth">
+              Already have an account?
               <button onClick={openLogin}>Login</button>
             </p>
           </form>
         </SquareCard>
       </center>
     </div>
-  )
+  );
 }

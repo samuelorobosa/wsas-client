@@ -14,3 +14,15 @@ export const getCountriesThunk = createAsyncThunk(
     }
 });
 
+export const registerUserThunk = createAsyncThunk(
+    'auth/registerUser',
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await getCountries(data);
+            return response.data;
+        }
+        catch (err) {
+            return rejectWithValue(err);
+        }
+    });
+

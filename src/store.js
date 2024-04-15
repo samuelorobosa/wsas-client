@@ -6,7 +6,7 @@ import ordersReducer from "./modules/order-management/state/orders-slice";
 import profileReducer from "./modules/user/state/profile-slice";
 
 const store = configureStore({
-  devTools: process.env.NODE_ENV != "production",
+  devTools: process.env.NODE_ENV !== "production",
   reducer: {
     auth: authReducer,
     navDrawer: navDrawerReducer,

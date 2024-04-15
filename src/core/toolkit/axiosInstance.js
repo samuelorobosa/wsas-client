@@ -1,7 +1,7 @@
 import {getBaseUrlFromEnv} from "./helpers.js";
 import axios from "axios";
 
-const defaultAxiosInstance = axios.create({
+export const defaultAxiosInstance = axios.create({
     baseURL: getBaseUrlFromEnv(),
 });
 

@@ -5,7 +5,8 @@ import {LoadingStates} from "../../core/toolkit/helpers.js";
 
 const initialState = {
     loading: LoadingStates.base,
-    countries: []
+    countries: [],
+    user: null,
 };
 
 
