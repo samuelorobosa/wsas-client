@@ -1,0 +1,319 @@
+.appbar-title{
+    padding: 1rem;
+}
+
+.exchange__rate__section{
+    width: 90%;
+    margin: 0 auto 2rem auto;
+    display: grid;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.exchange__rate__section header{
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.profile-page{
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: #fff;
+    border-radius: 12px;
+}
+
+aside.actions__section{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem;
+    row-gap: .5rem;
+    border-right: 1px solid #DFE6EC;
+}
+
+aside.content__section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: 1.2rem;
+}
+aside.actions__section > div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 12px;
+    color: #2772F0;
+    padding: .7rem .7rem;
+    font-weight: 600;
+    gap: .5rem;
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+}
+
+aside.actions__section > div:hover {
+    background-color: rgba(39, 114, 240, 0.10);
+}
+
+.content__section header{
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding: 1.2rem 1.3rem;
+    border-bottom: 1px solid #DFE6EC;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.content__section header figure{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
+aside.content__section .content__section__body{
+    padding: 1.2rem 1.3rem;
+}
+
+.content__section__body .user__profile{
+    border-radius: 12px;
+    background: #F7F9FC;
+}
+
+section.content__section__body .user__profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem;
+    column-gap: 1.2rem;
+}
+
+section.content__section__body .user__profile .user__profile__left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem;
+    column-gap: 1.2rem;
+}
+
+section.content__section__body .user__profile .user__profile__image {
+    width: 4rem;
+    height: 4rem;
+}
+
+section.content__section__body .user__profile .user__profile__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+section.content__section__body .user__profile .user__profile__content {
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+}
+
+section.content__section__body .user__profile .user__profile__content .user__profile__content__email {
+    font-weight: 400;
+    color: #6978A0;
+}
+
+section.content__section__body .user__profile .user__profile__content .user__profile__content__name {
+    font-weight: 600;
+}
+
+.content__section__body form{
+   margin-top: 3rem;
+}
+
+
+.content__section__body form .form__sections{
+    display: flex;
+    flex-direction: row;
+    row-gap: 1.2rem;
+    justify-content: space-between;
+    column-gap: 1.2rem;
+}
+
+.content__section__body form .form__final{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    column-gap: 1.2rem;
+}
+
+.content__section__body form .form__sections .form-group-input,
+.content__section__body form .form__sections .form-group-input .react-tel-input input {
+    width: 100%;
+}
+
+.non__editable__form .personal__information .details__container{
+    display: flex;
+    flex-direction: row;
+    column-gap: 4.3rem;
+}
+
+.non__editable__form .shipping__address .details__container{
+    display: flex;
+    flex-direction: column;
+}
+
+.non__editable__form .shipping__address .details__container p{
+    font-size: 13px;
+    margin-bottom: 2.5rem;
+}
+
+.non__editable__form .shipping__address .details__container .details__container__stats{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.non__editable__form .shipping__address .details__container .details__container__stats > div{
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+}
+
+.non__editable__form .shipping__address .details__container .details__container__stats > div span:first-child{
+    font-size: 24px;
+    color: #23272E;
+    font-weight: 600;
+}
+
+.non__editable__form .shipping__address .details__container .details__container__stats > div span:last-child{
+    color: #8B909A;
+}
+
+section.non__editable__form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100%;
+    margin-top: 2rem;
+}
+
+section.non__editable__form .personal__information{
+    border-right: 1px solid #DBDADE;
+    border-radius: 4px;
+}
+
+section.non__editable__form .shipping__address{
+   padding-left: 2rem;
+}
+
+section.non__editable__form .personal__information .header,
+section.non__editable__form .shipping__address .header{
+    color: #8B909A;
+    font-size: 12px;
+    margin-bottom: 1.5rem;
+}
+
+
+section.non__editable__form .personal__information  p{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 12px;
+    row-gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+section.non__editable__form .personal__information  p span:last-child{
+    text-align: left;
+}
+
+.exchange__rate__section__body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1.3rem;
+    border-radius: 12px;
+    background-color: #F7F9FC;
+    margin-top: 1rem;
+}
+
+.exchange__rate__section__body__center{
+   background-color: #2772F0;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 50%;
+}
+
+.exchange__rate__section__body__left,
+.exchange__rate__section__body__right{
+    display: flex;
+    flex-direction: row;
+    column-gap: .2rem;
+    align-items: center;
+}
+
+.exchange__rate__section__body .exchange__rate__section__body__value{
+    font-size: 1.9rem;
+    font-weight: 600;
+}
+
+.profile__notification__modal{
+    top: 5rem;
+    right: 5px;
+    width: 40%;
+    background-color: #fff;
+    padding: 1rem 0;
+    border-radius: 8px;
+    animation: slideInUp .3 ease-in-out;
+    border: 1px solid #DFE6EC;
+}
+
+.profile__notification__modal .notification__item{
+    display: flex;
+    column-gap: 1rem;
+    font-size: .8rem;
+    color: #6978A0;
+    font-weight: 400;
+    margin: 1rem 0;
+    padding: 0 1rem;
+}
+
+.profile__notification__modal .notification__item:not(:last-child){
+    border-bottom: 1px solid #DFE6EC;
+    padding-bottom: 1rem;
+}
+
+.profile__notification__modal .notification__item aside{
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+    font-size: .8rem;
+}
+
+.profile__notification__modal .notification__item figure{
+    width: 2rem;
+    height: 2rem;
+}
+
+.profile__notification__modal .notification__item figure img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+@keyframes slideInUp {
+    from{
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

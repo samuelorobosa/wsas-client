@@ -1,0 +1,38 @@
+.appbar-title{
+    padding: 1rem;
+}
+
+.filter__section{
+    display: flex;
+    width: 90%;
+    margin: auto;
+    justify-content: flex-start;
+    column-gap: 1rem;
+}
+
+.filter__section > *{
+    background-color: white;
+    width: 30%;
+}
+
+
+table.transaction__history {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 1rem auto;
+    border-radius: 12px;
+    background-color: white;
+}
+
+.transaction__history th, .transaction__history td {
+    padding: 12px;
+    text-align: left;
+}
+
+.transaction__history th{
+    color: #B0B7C3;
+}
+
+.transaction__history thead{
+    border-bottom: 1px solid #EAEFF3;;
+}
