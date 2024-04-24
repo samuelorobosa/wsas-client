@@ -1,10 +1,5 @@
 import { FaEnvelope, FaEye, FaEyeSlash, FaPhone, FaUser } from 'react-icons/fa';
-import {
-  CustomSelectField,
-  InputGroup,
-  PrimaryBtn,
-  SquareCard,
-} from '../../../../core/uikit';
+import { InputGroup, PrimaryBtn, SquareCard } from '../../../../core/uikit';
 import CaptchaInput from '../../components/CaptchaInput/CaptchaInput';
 import logo from '../../../../core/assets/logo.jpeg';
 import './RegistrationPage.css';
@@ -13,28 +8,22 @@ import { useNavigate } from 'react-router-dom';
 import { routeNames } from '../../../../core/navigation/routenames';
 import { useEffect, useState } from 'react';
 import { getCountriesThunk } from '../../authThunks.js';
+import { Controller, useForm } from 'react-hook-form';
+import Select from 'react-select';
 
 export default function RegistrationPage() {
+  const [captcha, setCaptcha] = useState(false);
   const [firstPasswordVisible, setFirstPasswordVisible] = useState(false);
   const [secondPasswordVisible, setSecondPasswordVisible] = useState(false);
   const { countries } = useSelector((state) => state.auth);
   const suffixIconTheme = { color: '#495057' };
-  const countryOptions = countries.map(({ name, cioc }) => ({
-    name,
-    value: cioc,
+  const countryOptions = countries.map(({ name, value }) => ({
+    label: name,
+    value,
   }));
+
   const dispatch = useDispatch();
   const openPage = useNavigate();
-
-  function submitForm(e) {
-    e.preventDefault();
-    const passwordsMatch = confirmPasswordsMatch();
-    console.log(passwordsMatch);
-  }
-
-  function confirmPasswordsMatch(first, second) {
-    return first === second;
-  }
 
   function openLogin() {
     openPage(routeNames.login);
@@ -47,6 +36,41 @@ export default function RegistrationPage() {
     dispatch(getCountriesThunk(data));
   }, []);
 
+  const {
+    control,
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      country: {
+        label: '',
+        value: '',
+      },
+      phoneNumber: '',
+    },
+  });
+
+  const handleCaptchaUpdate = (value) => {
+    setCaptcha(value);
+  };
+
+  const onSubmit = (data) => {
+    window.alert(
+      JSON.stringify({
+        data,
+        captcha,
+      }),
+    );
+  };
+
   return (
     <div className="registration-page">
       <center>
@@ -57,31 +81,35 @@ export default function RegistrationPage() {
           </h1>
         </div>
         <SquareCard>
-          <form className="reg-form" onSubmit={submitForm} method="post">
+          <form className="reg-form" onSubmit={handleSubmit(onSubmit)}>
             <p className="form-label">Create a new account</p>
             <InputGroup
               placeholder="First Name"
               name="firstName"
               suffixIcon={<FaUser />}
               suffixIconTheme={suffixIconTheme}
+              register={register}
             />
             <InputGroup
               placeholder="Last Name"
               name="lastName"
               suffixIcon={<FaUser />}
               suffixIconTheme={suffixIconTheme}
+              register={register}
             />
             <InputGroup
               placeholder="Username"
               name="username"
               suffixIcon={<FaUser />}
               suffixIconTheme={suffixIconTheme}
+              register={register}
             />
             <InputGroup
               placeholder="Email"
               name="email"
               suffixIcon={<FaEnvelope />}
               suffixIconTheme={suffixIconTheme}
+              register={register}
             />
             <InputGroup
               placeholder="Password"
@@ -90,6 +118,7 @@ export default function RegistrationPage() {
               suffixIconTheme={suffixIconTheme}
               obscureText={!firstPasswordVisible}
               onTapSuffix={() => setFirstPasswordVisible(!firstPasswordVisible)}
+              register={register}
             />
             <InputGroup
               placeholder="Confirm Password"
@@ -100,21 +129,46 @@ export default function RegistrationPage() {
               onTapSuffix={() =>
                 setSecondPasswordVisible(!secondPasswordVisible)
               }
+              register={register}
             />
-            <CustomSelectField options={countryOptions} />
+            {countryOptions && (
+              <Controller
+                control={control}
+                name="country"
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    placeholder="Select a country"
+                    isClearable={false}
+                    isSearchable={false}
+                    options={countryOptions}
+                    unstyled={true}
+                    classNames={{
+                      container: (state) => 'react-select-select-container',
+                      control: (state) => 'react-select-control',
+                      menuList: (state) => 'react-select-menu-list',
+                      menu: (state) => 'react-select-menu',
+                      option: (state) => 'react-select-option',
+                      singleValue: (state) => 'react-select-single-value',
+                    }}
+                  />
+                )}
+              />
+            )}
+
             <InputGroup
               placeholder="Phone Number"
               name="phoneNumber"
               suffixIcon={<FaPhone />}
               suffixIconTheme={suffixIconTheme}
+              register={register}
             />
-            <CaptchaInput />
+            <CaptchaInput onChange={handleCaptchaUpdate} />
             <div className="t-and-c">
               <input
+                {...register('termsAndConditions')}
                 className="checkbox"
                 type="checkbox"
-                id="agreedToTerms"
-                name="agreedToTerms"
               />
               <label htmlFor="agreedToTerms" className="checkbox-label">
                 {'I agree to the '}

@@ -9,6 +9,7 @@ export default function InputGroup({
   placeholder,
   suffixIcon,
   suffixIconTheme = { color: '#777' },
+  register = null,
 }) {
   return (
     <div className="input-group">
@@ -17,6 +18,7 @@ export default function InputGroup({
         type={obscureText ? 'password' : 'text'}
         placeholder={placeholder}
         name={name}
+        {...(register && register(name))}
       />
       <figure className="input-suffix-icon" onClick={onTapSuffix}>
         <IconContext.Provider value={suffixIconTheme}>

@@ -8,7 +8,7 @@ export default function CaptchaInput({ onChange }) {
   const [answer, setAnswer] = useState(null);
 
   useEffect(() => {
-    const captchaObject = captchaService.genCaptcha()
+    const captchaObject = captchaService.genCaptcha();
     setAnswer(captchaObject.result);
     parseQuestion(captchaObject);
   }, []);
@@ -20,10 +20,10 @@ export default function CaptchaInput({ onChange }) {
   }
 
   function handleChange(e) {
-    if (answer && e.target.value === answer) {
-      onChange(true);
+    if (answer && Number(e.target.value) === answer) {
+      onChange && onChange(true);
     } else {
-      onChange(false);
+      onChange && onChange(false);
     }
   }
 
@@ -32,7 +32,13 @@ export default function CaptchaInput({ onChange }) {
       <div className="robot-label-wrap">
         <p className="robot-label">{question ?? ''}</p>
       </div>
-      <input placeholder="Enter the answer" className="answer-input" type="text" name="captcha" onInput={handleChange} />
+      <input
+        placeholder="Enter the answer"
+        className="answer-input"
+        type="text"
+        name="captcha"
+        onInput={handleChange}
+      />
     </div>
-  )
+  );
 }
