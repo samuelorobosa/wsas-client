@@ -6,10 +6,13 @@ import captchaService from '../../services/captcha-service';
 export default function CaptchaInput({ onChange }) {
   const [question, setQuestion] = useState(null);
   const [answer, setAnswer] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(true);
 
   useEffect(() => {
     const captchaObject = captchaService.genCaptcha();
+    console.log(captchaObject);
     setAnswer(captchaObject.result);
+    console.log(answer);
     parseQuestion(captchaObject);
   }, []);
 
@@ -21,24 +24,32 @@ export default function CaptchaInput({ onChange }) {
 
   function handleChange(e) {
     if (answer && Number(e.target.value) === answer) {
+      setIsCorrect(true);
       onChange && onChange(true);
     } else {
+      setIsCorrect(false);
       onChange && onChange(false);
     }
   }
 
   return (
-    <div className="robot-input">
-      <div className="robot-label-wrap">
-        <p className="robot-label">{question ?? ''}</p>
+    <div>
+      <div className="robot-input">
+        <div className="robot-label-wrap">
+          <p className="robot-label">{question ?? ''}</p>
+        </div>
+        <input
+          placeholder="Enter the answer"
+          className="answer-input"
+          type="text"
+          name="captcha"
+          onInput={handleChange}
+          required
+        />
       </div>
-      <input
-        placeholder="Enter the answer"
-        className="answer-input"
-        type="text"
-        name="captcha"
-        onInput={handleChange}
-      />
+      <div className="robot-error">
+        {!isCorrect && <p>Incorrect answer. Please try again.</p>}
+      </div>
     </div>
   );
 }
