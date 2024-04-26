@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 import './CaptchaInput.css';
+import useSWR from 'swr';
 import captchaService from '../../services/captcha-service';
 
 export default function CaptchaInput({ onChange }) {
@@ -8,13 +9,15 @@ export default function CaptchaInput({ onChange }) {
   const [answer, setAnswer] = useState(null);
   const [isCorrect, setIsCorrect] = useState(true);
 
-  useEffect(() => {
+  const fetchCaptchaData = async () => {
     const captchaObject = captchaService.genCaptcha();
     console.log(captchaObject);
     setAnswer(captchaObject.result);
-    console.log(answer);
     parseQuestion(captchaObject);
-  }, []);
+    return captchaObject;
+  };
+
+  const { data, error, isLoading } = useSWR('captchaData', fetchCaptchaData);
 
   function parseQuestion(captchaObj) {
     const { firstInput, secondInput, operator } = captchaObj;
@@ -23,7 +26,8 @@ export default function CaptchaInput({ onChange }) {
   }
 
   function handleChange(e) {
-    if (answer && Number(e.target.value) === answer) {
+    const inputValue = Number(e.target.value);
+    if (!isNaN(inputValue) && answer !== null && inputValue === answer) {
       setIsCorrect(true);
       onChange && onChange(true);
     } else {

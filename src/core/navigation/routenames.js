@@ -12,7 +12,7 @@ export const subRouteNames = {
   withdrawFunds: 'withdraw-funds',
   requestShipping: 'request-shipping',
   requestExpressCourierService: 'request-express-courier-service',
-}
+};
 
 export const routeNames = {
   dashboard: '/dashboard',
@@ -20,4 +20,5 @@ export const routeNames = {
   login: '/login',
   register: '/register',
   resetPassword: '/reset-password',
-}
+  termsAndConditions: '/terms-and-conditions',
+};

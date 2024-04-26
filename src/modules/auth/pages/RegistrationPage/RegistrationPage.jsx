@@ -1,9 +1,9 @@
 import { FaEnvelope, FaEye, FaEyeSlash, FaPhone, FaUser } from 'react-icons/fa';
 import { InputGroup, PrimaryBtn, SquareCard } from '../../../../core/uikit';
 import CaptchaInput from '../../components/CaptchaInput/CaptchaInput';
-import captchaService from '../../services/captcha-service';
 import logo from '../../../../core/assets/logo.jpeg';
 import './RegistrationPage.css';
+import '../../../../core/uikit/InputGroup/InputGroup.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { routeNames } from '../../../../core/navigation/routenames';
@@ -12,7 +12,7 @@ import { getCountriesThunk } from '../../authThunks.js';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
-import InputGroupAlt from '../../../../core/uikit/InputGroupAlt/InputGroupAlt';
+import { IconContext } from 'react-icons';
 
 export default function RegistrationPage() {
   const [captcha, setCaptcha] = useState(false);
@@ -94,13 +94,6 @@ export default function RegistrationPage() {
   }
 
   const onSubmit = (data) => {
-    // window.alert(
-    //   JSON.stringify({
-    //     data,
-    //     captcha,
-    //   }),
-    // );
-
     console.log(data);
     if (data.password !== data.confirmPassword) {
       toast.error('Passwords do not match. Please check your input.');
@@ -170,37 +163,63 @@ export default function RegistrationPage() {
               errorMessage={errors.email ? errors.email.message : ''}
             />
 
-            {/* <InputGroup
-              placeholder="Password"
-              name="password"
-              suffixIcon={firstPasswordVisible ? <FaEye /> : <FaEyeSlash />}
-              suffixIconTheme={suffixIconTheme}
-              obscureText={!firstPasswordVisible}
-              onTapSuffix={() => setFirstPasswordVisible(!firstPasswordVisible)}
-              register={...register('password', {
-                required: validationRules.required,
-                pattern: validationRules.pattern,
-              })}
-              errorMessage={errors.password ? errors.password.message : ''}
-              required
-            />
-            
-            <InputGroup
-              placeholder="Confirm Password"
-              name="confirmPassword"
-              suffixIcon={secondPasswordVisible ? <FaEye /> : <FaEyeSlash />}
-              suffixIconTheme={suffixIconTheme}
-              obscureText={!secondPasswordVisible}
-              onTapSuffix={() =>
-                setSecondPasswordVisible(!secondPasswordVisible)
-              }
-              register={...register('confirmPassword', {
-                required: validationRules.required,
-                pattern: validationRules.pattern,
-              })}
-              errorMessage={errors.password ? errors.password.message : ''}
-              required
-            /> */}
+            <div>
+              <div className="input-group">
+                <input
+                  className="input-group-input"
+                  type={!firstPasswordVisible ? 'password' : 'text'}
+                  placeholder="Password"
+                  name="password"
+                  {...register('password', {
+                    required: validationRules.required,
+                    minLength: validationRules.minLength,
+                    pattern: validationRules.pattern,
+                  })}
+                />
+                <figure
+                  className="input-suffix-icon"
+                  onClick={() => setFirstPasswordVisible(!firstPasswordVisible)}
+                >
+                  <IconContext.Provider value={suffixIconTheme}>
+                    {firstPasswordVisible ? <FaEye /> : <FaEyeSlash />}
+                  </IconContext.Provider>
+                </figure>
+              </div>
+              <div className="input-error">
+                {errors.password && <span>{errors.password.message}</span>}
+              </div>
+            </div>
+
+            <div>
+              <div className="input-group">
+                <input
+                  className="input-group-input"
+                  type={!secondPasswordVisible ? 'password' : 'text'}
+                  placeholder="Confirm Password"
+                  name="confirmPassword"
+                  {...register('confirmPassword', {
+                    required: validationRules.required,
+                    minLength: validationRules.minLength,
+                    pattern: validationRules.pattern,
+                  })}
+                />
+                <figure
+                  className="input-suffix-icon"
+                  onClick={() =>
+                    setSecondPasswordVisible(!secondPasswordVisible)
+                  }
+                >
+                  <IconContext.Provider value={suffixIconTheme}>
+                    {secondPasswordVisible ? <FaEye /> : <FaEyeSlash />}
+                  </IconContext.Provider>
+                </figure>
+              </div>
+              <div className="input-error">
+                {errors.confirmPassword && (
+                  <span>{errors.confirmPassword.message}</span>
+                )}
+              </div>
+            </div>
 
             {countryOptions && (
               <Controller
@@ -262,7 +281,7 @@ export default function RegistrationPage() {
             <PrimaryBtn
               type="submit"
               text="Register"
-              // disabled={isSubmitting || !captcha || !isTermsAndConditions}
+              disabled={isSubmitting || !captcha || !isTermsAndConditions}
             />
             <p className="alternate-auth">
               Already have an account?
