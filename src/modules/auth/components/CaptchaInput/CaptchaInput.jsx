@@ -11,7 +11,6 @@ export default function CaptchaInput({ onChange }) {
 
   const fetchCaptchaData = async () => {
     const captchaObject = captchaService.genCaptcha();
-    console.log(captchaObject);
     setAnswer(captchaObject.result);
     parseQuestion(captchaObject);
     return captchaObject;

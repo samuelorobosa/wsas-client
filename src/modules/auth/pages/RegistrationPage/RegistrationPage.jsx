@@ -85,13 +85,8 @@ export default function RegistrationPage() {
   const isTermsAndConditions = watch('termsAndConditions');
 
   const handleCaptchaUpdate = (value) => {
-    console.log(value);
     setCaptcha(value);
   };
-
-  function handleCaptchaChange(value) {
-    console.log(value);
-  }
 
   const onSubmit = (data) => {
     console.log(data);
