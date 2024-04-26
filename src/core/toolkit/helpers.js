@@ -5,6 +5,7 @@ export const getBaseUrlFromEnv = () => {
     testing: 'testing-url',
   };
   const env = process.env.NODE_ENV;
+  // const env = import.meta.env.VITE_PUBLIC_URL;
   return urlFromEnvironment[env];
 };
 

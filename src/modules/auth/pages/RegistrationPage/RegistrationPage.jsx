@@ -13,6 +13,7 @@ import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { IconContext } from 'react-icons';
+import { registerUser } from '../../services/authService';
 
 export default function RegistrationPage() {
   const [captcha, setCaptcha] = useState(false);
@@ -60,7 +61,7 @@ export default function RegistrationPage() {
         label: 'Nigeria',
         value: 'NGR',
       },
-      phoneNumber: '',
+      phone: '',
     },
   });
 
@@ -88,11 +89,22 @@ export default function RegistrationPage() {
     setCaptcha(value);
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
-    if (data.password !== data.confirmPassword) {
+  const onSubmit = async (formData) => {
+    const { country, termsAndConditions, confirmPassword, ...rest } = formData;
+    console.log(formData);
+    if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match. Please check your input.');
       return;
+    }
+
+    try {
+      const { data } = await registerUser({
+        ...rest,
+        country: formData.country.label,
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
     }
 
     console.log('success');
@@ -242,15 +254,13 @@ export default function RegistrationPage() {
 
             <InputGroup
               placeholder="Phone Number"
-              name="phoneNumber"
+              name="phone"
               suffixIcon={<FaPhone />}
               suffixIconTheme={suffixIconTheme}
               register={(name, rules) =>
                 register(name, { required: validationRules.required })
               }
-              errorMessage={
-                errors.phoneNumber ? errors.phoneNumber.message : ''
-              }
+              errorMessage={errors.phone ? errors.phone.message : ''}
             />
             <CaptchaInput
               onChange={handleCaptchaUpdate}

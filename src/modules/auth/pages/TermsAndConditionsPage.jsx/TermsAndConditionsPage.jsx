@@ -40,7 +40,7 @@ export default function TermsAndConditionsPage() {
           </p>
 
           <ol className="list-decimal">
-            <li className="font-semibold text-base mb-3">
+            <li className="font-semibold text-base mb-3 text-[#007bff]">
               SHOPPING/PROCUREMENT
             </li>
 
@@ -79,7 +79,7 @@ export default function TermsAndConditionsPage() {
               ONLY acceptable products as described above.
             </p>
 
-            <li className="font-semibold text-base mb-3">
+            <li className="font-semibold text-base mb-3 text-[#007bff]">
               PACKAGING AND DELIVERIES
             </li>
             <p className="mb-3">
@@ -110,7 +110,7 @@ export default function TermsAndConditionsPage() {
               be redelivered.
             </p>
 
-            <li className="font-semibold text-base mb-3">
+            <li className="font-semibold text-base mb-3 text-[#007bff]">
               SHIPPING CHARGES AND FEES
             </li>
             <p className="mb-3">
@@ -129,7 +129,7 @@ export default function TermsAndConditionsPage() {
               and is payable by the receiver or customer.{' '}
             </p>
 
-            <li className="font-semibold text-base mb-3">
+            <li className="font-semibold text-base mb-3 text-[#007bff]">
               WESHOPANDSHIP's LIABLITIES
             </li>
             <p className="mb-5">
@@ -146,7 +146,9 @@ export default function TermsAndConditionsPage() {
               government agencies.
             </p>
 
-            <li className="font-semibold text-base mb-3">CLAIMS</li>
+            <li className="font-semibold text-base mb-3 text-[#007bff]">
+              CLAIMS
+            </li>
             <p className="mb-3">
               All claims regarding damage or loss must be submitted in writing
               to WESHOPANDSHIP through any of our contact channels within 5days
@@ -154,7 +156,9 @@ export default function TermsAndConditionsPage() {
               held liable.
             </p>
 
-            <li className="font-semibold text-base mb-3">INSURANCE</li>
+            <li className="font-semibold text-base mb-3 text-[#007bff]">
+              INSURANCE
+            </li>
             <p className="mb-3">
               WESHOPANDSHIP may provide insurance covering the declared value in
               respect to loss or damage in cases where User/shipper subscribes
@@ -187,7 +191,7 @@ export default function TermsAndConditionsPage() {
               </li>
             </ul>
 
-            <li className="font-semibold text-base mb-3">
+            <li className="font-semibold text-base mb-3 text-[#007bff]">
               WARRANTIES AND INDEMNITY
             </li>
             <p>

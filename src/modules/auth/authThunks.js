@@ -1,28 +1,26 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {getCountries} from './services/authService.js';
-
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getCountries, registerUser } from './services/authService.js';
 
 export const getCountriesThunk = createAsyncThunk(
-'auth/getCountries',
-    async (data, { rejectWithValue }) => {
+  'auth/getCountries',
+  async (data, { rejectWithValue }) => {
     try {
-        const response = await getCountries(data);
-        return response.data;
+      const response = await getCountries(data);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err);
     }
-    catch (err) {
-        return rejectWithValue(err);
-    }
-});
+  },
+);
 
 export const registerUserThunk = createAsyncThunk(
-    'auth/registerUser',
-    async (data, { rejectWithValue }) => {
-        try {
-            const response = await getCountries(data);
-            return response.data;
-        }
-        catch (err) {
-            return rejectWithValue(err);
-        }
-    });
-
+  'auth/registerUser',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await registerUser(data);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  },
+);
