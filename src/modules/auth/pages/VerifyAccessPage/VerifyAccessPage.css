@@ -1,0 +1,45 @@
+.otp-input {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  width: 60px !important;
+  height: 60px !important;
+  text-align: center;
+  border-radius: 20% !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 2.5rem !important;
+  font-size: calc(1.35rem + 1.2vw) !important;
+  font-size: calc(1.35rem + 1.2vw) !important;
+  margin-right: 0.25rem !important;
+  margin-left: 0.25rem !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  border: 1px solid #495057;
+  color: #f8f9fa !important;
+  transition: color 0.2s ease !important;
+  background-color: #dee2e6 !important;
+  border-color: transparent !important;
+}
+
+/* Medium devices */
+@media (max-width: 768px) {
+  .otp-input {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
+/* Small devices */
+@media (max-width: 576px) {
+  .otp-input {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+.otp-input::-webkit-outer-spin-button,
+.otp-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

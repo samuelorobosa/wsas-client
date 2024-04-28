@@ -16,6 +16,7 @@ import ShippingAddressBook from '../../modules/user/pages/ShippingAddressBook/Sh
 import RequestShipping from '../../modules/user/pages/RequestShipping/RequestShipping.jsx';
 import RequestExpressCourierService from '../../modules/user/pages/RequestExpressCourierService/RequestExpressCourierService.jsx';
 import TermsAndConditionsPage from '../../modules/auth/pages/TermsAndConditionsPage.jsx/TermsAndConditionsPage';
+import VerifyAccessPage from '../../modules/auth/pages/VerifyAccessPage/VerifyAccessPage';
 
 const appRouter = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ const appRouter = createBrowserRouter([
   {
     path: routeNames.register,
     element: <RegistrationPage />,
+  },
+  {
+    path: routeNames.verifyAccess,
+    element: <VerifyAccessPage />,
   },
   {
     path: routeNames.resetPassword,

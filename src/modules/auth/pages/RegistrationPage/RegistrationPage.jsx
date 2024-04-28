@@ -96,17 +96,6 @@ export default function RegistrationPage() {
       return;
     }
 
-    // try {
-    //   const { data } = await registerUser({
-    //     ...rest,
-    //     country: formData.country.label,
-    //   });
-    //   console.log(data);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    //
-    // console.log('success');
     dispatch(registerUserThunk({ ...rest, country: formData.country.label }));
   };
 

@@ -19,6 +19,7 @@ export const routeNames = {
   home: '/',
   login: '/login',
   register: '/register',
+  verifyAccess: '/verify-access',
   resetPassword: '/reset-password',
   termsAndConditions: '/terms-and-conditions',
 };
