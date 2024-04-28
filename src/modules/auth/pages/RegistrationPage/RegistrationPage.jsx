@@ -8,12 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { routeNames } from '../../../../core/navigation/routenames';
 import { useEffect, useState } from 'react';
-import { getCountriesThunk } from '../../authThunks.js';
+import { getCountriesThunk, registerUserThunk } from '../../authThunks.js';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { IconContext } from 'react-icons';
-import { registerUser } from '../../services/authService';
 
 export default function RegistrationPage() {
   const [captcha, setCaptcha] = useState(false);
@@ -24,7 +23,7 @@ export default function RegistrationPage() {
   const [defaultCountry] = useState({ value: 'NGR', label: 'Nigeria' });
   const { countries } = useSelector((state) => state.auth);
   const suffixIconTheme = { color: '#495057' };
-  const countryOptions = countries.map(({ name, value }) => ({
+  const countryOptions = countries.data.map(({ name, value }) => ({
     label: name,
     value,
   }));
@@ -97,17 +96,18 @@ export default function RegistrationPage() {
       return;
     }
 
-    try {
-      const { data } = await registerUser({
-        ...rest,
-        country: formData.country.label,
-      });
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-
-    console.log('success');
+    // try {
+    //   const { data } = await registerUser({
+    //     ...rest,
+    //     country: formData.country.label,
+    //   });
+    //   console.log(data);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    //
+    // console.log('success');
+    dispatch(registerUserThunk({ ...rest, country: formData.country.label }));
   };
 
   return (
