@@ -15,3 +15,11 @@ export const getCountries = async (data) => {
 export const registerUser = async (data) => {
   return await authServiceClient.post(authUrls.registerUser, data);
 };
+
+export const verifyEmail = async (data) => {
+  return await authServiceClient.post(authUrls.verifyEmail, data);
+};
+
+export const login = async (data) => {
+  return await authServiceClient.post(authUrls.login, data);
+};

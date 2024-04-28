@@ -88,7 +88,7 @@ export default function RegistrationPage() {
     setCaptcha(value);
   };
 
-  const onSubmit = async (formData) => {
+  const onSubmit = (formData) => {
     const { country, termsAndConditions, confirmPassword, ...rest } = formData;
     console.log(formData);
     if (formData.password !== formData.confirmPassword) {
@@ -97,6 +97,7 @@ export default function RegistrationPage() {
     }
 
     dispatch(registerUserThunk({ ...rest, country: formData.country.label }));
+    // openPage(routeNames.verifyEmail);
   };
 
   return (

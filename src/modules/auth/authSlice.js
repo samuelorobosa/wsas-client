@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getCountriesThunk, registerUserThunk } from './authThunks.js';
+import {
+  getCountriesThunk,
+  loginThunk,
+  registerUserThunk,
+  verifyEmailThunk,
+} from './authThunks.js';
 import { LoadingStates } from '../../core/toolkit/helpers.js';
 
 const initialState = {
@@ -46,8 +51,35 @@ const authSlice = createSlice({
       state.user.loading = LoadingStates.fulfilled;
       console.log('User registered:', payload);
     });
-    builder.addCase(registerUserThunk.rejected, (state) => {
+    builder.addCase(registerUserThunk.rejected, (state, { payload }) => {
       state.user.loading = LoadingStates.rejected;
+      console.log('User rejected:', payload);
+    });
+
+    //Verify Email Thunk
+    builder.addCase(verifyEmailThunk.pending, (state) => {
+      state.user.loading = LoadingStates.pending;
+    });
+    builder.addCase(verifyEmailThunk.fulfilled, (state, { payload }) => {
+      state.user.loading = LoadingStates.fulfilled;
+      console.log('Email verified:', payload);
+    });
+    builder.addCase(verifyEmailThunk.rejected, (state) => {
+      state.user.loading = LoadingStates.rejected;
+      // console.log('Email error:', payload);
+    });
+
+    //Login Thunk
+    builder.addCase(loginThunk.pending, (state) => {
+      state.user.loading = LoadingStates.pending;
+    });
+    builder.addCase(loginThunk.fulfilled, (state, { payload }) => {
+      state.user.loading = LoadingStates.fulfilled;
+      console.log('Email verified:', payload);
+    });
+    builder.addCase(loginThunk.rejected, (state) => {
+      state.user.loading = LoadingStates.rejected;
+      // console.log('Email error:', payload);
     });
   },
 });

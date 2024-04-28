@@ -15,9 +15,9 @@
   margin-left: 0.25rem !important;
   font-weight: 500 !important;
   line-height: 1.5 !important;
-  border: 1px solid #495057;
-  color: #f8f9fa !important;
-  transition: color 0.2s ease !important;
+  border: 1px solid #28a745;
+  color: #28a745 !important;
+  transition: #28a745 0.2s ease !important;
   background-color: #dee2e6 !important;
   border-color: transparent !important;
 }

@@ -19,7 +19,7 @@ export const routeNames = {
   home: '/',
   login: '/login',
   register: '/register',
-  verifyAccess: '/verify-access',
+  verifyEmail: '/verify-email',
   resetPassword: '/reset-password',
   termsAndConditions: '/terms-and-conditions',
 };

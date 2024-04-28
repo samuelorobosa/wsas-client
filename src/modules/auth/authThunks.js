@@ -1,7 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getCountries, registerUser } from './services/authService.js';
-import { useNavigate } from 'react-router-dom';
-import { routeNames } from '../../core/navigation/routenames.js';
+import {
+  getCountries,
+  registerUser,
+  verifyEmail,
+} from './services/authService.js';
 
 export const getCountriesThunk = createAsyncThunk(
   'auth/getCountries',
@@ -18,10 +20,34 @@ export const getCountriesThunk = createAsyncThunk(
 export const registerUserThunk = createAsyncThunk(
   'auth/registerUser',
   async (data, { rejectWithValue }) => {
-    const openPage = useNavigate();
     try {
       const response = await registerUser(data);
-      openPage(routeNames.verifyAccess);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err);
+    }
+  },
+);
+
+export const verifyEmailThunk = createAsyncThunk(
+  'auth/verifyEmail',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await verifyEmail(data);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err);
+    }
+  },
+);
+
+export const loginThunk = createAsyncThunk(
+  'auth/login',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await login(data);
       return response.data;
     } catch (err) {
       console.log(err);
