@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   getCountries,
+  login,
   registerUser,
   verifyEmail,
 } from './services/authService.js';

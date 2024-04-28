@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { routeNames } from '../../../../core/navigation/routenames';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { loginThunk } from '../../authThunks';
 
 export default function LoginPage() {
   const [captcha, setCaptcha] = useState(false);
@@ -43,12 +44,8 @@ export default function LoginPage() {
   }
 
   const onSubmit = (data) => {
-    window.alert(
-      JSON.stringify({
-        data,
-        captcha,
-      }),
-    );
+    console.log(data);
+    dispatch(loginThunk(data));
   };
 
   return (
