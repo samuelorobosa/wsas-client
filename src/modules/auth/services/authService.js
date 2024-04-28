@@ -13,5 +13,5 @@ export const getCountries = async (data) => {
 };
 
 export const registerUser = async (data) => {
-  return await defaultAxiosInstance.post(authUrls.registerUser, data);
+  return await authServiceClient.post(authUrls.registerUser, data);
 };

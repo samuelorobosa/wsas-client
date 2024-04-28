@@ -51,8 +51,8 @@ export default function RegistrationPage() {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      firstname: '',
+      lastname: '',
       username: '',
       email: '',
       password: '',
@@ -124,25 +124,25 @@ export default function RegistrationPage() {
             <p className="form-label">Create a new account</p>
             <InputGroup
               placeholder="First Name"
-              name="firstName"
+              name="firstname"
               suffixIcon={<FaUser />}
               suffixIconTheme={suffixIconTheme}
               // {...register('firstName', { required: validationRules.required })}
               register={(name, rules) =>
                 register(name, { required: validationRules.required })
               }
-              errorMessage={errors.firstName ? errors.firstName.message : ''}
+              errorMessage={errors.firstname ? errors.firstname.message : ''}
             />
 
             <InputGroup
               placeholder="Last Name"
-              name="lastName"
+              name="lastname"
               suffixIcon={<FaUser />}
               suffixIconTheme={suffixIconTheme}
               register={(name, rules) =>
                 register(name, { required: validationRules.required })
               }
-              errorMessage={errors.lastName ? errors.lastName.message : ''}
+              errorMessage={errors.lastname ? errors.lastname.message : ''}
             />
 
             <InputGroup
