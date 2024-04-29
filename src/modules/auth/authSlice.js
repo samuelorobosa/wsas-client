@@ -12,7 +12,19 @@ const initialState = {
     loading: LoadingStates.base,
     data: [],
   },
-  user: {
+  register_user: {
+    loading: LoadingStates.base,
+    data: {},
+    response: null,
+    error: null,
+  },
+  verify_email: {
+    loading: LoadingStates.base,
+    data: {},
+    response: null,
+    error: null,
+  },
+  login_user: {
     loading: LoadingStates.base,
     data: {},
     response: null,
@@ -47,40 +59,40 @@ const authSlice = createSlice({
 
     //Register User Thunk
     builder.addCase(registerUserThunk.pending, (state) => {
-      state.user.loading = LoadingStates.pending;
+      state.register_user.loading = LoadingStates.pending;
     });
     builder.addCase(registerUserThunk.fulfilled, (state, { payload }) => {
-      state.user.loading = LoadingStates.fulfilled;
-      state.user.response = payload;
+      state.register_user.loading = LoadingStates.fulfilled;
+      state.register_user.response = payload;
     });
     builder.addCase(registerUserThunk.rejected, (state, { payload }) => {
-      state.user.loading = LoadingStates.rejected;
-      state.user.error = payload;
+      state.register_user.loading = LoadingStates.rejected;
+      state.register_user.error = payload;
     });
 
     //Verify Email Thunk
     builder.addCase(verifyEmailThunk.pending, (state) => {
-      state.user.loading = LoadingStates.pending;
+      state.verify_email.loading = LoadingStates.pending;
     });
     builder.addCase(verifyEmailThunk.fulfilled, (state, { payload }) => {
-      state.user.loading = LoadingStates.fulfilled;
+      state.verify_email.loading = LoadingStates.fulfilled;
       console.log('Email verified:', payload);
     });
     builder.addCase(verifyEmailThunk.rejected, (state) => {
-      state.user.loading = LoadingStates.rejected;
+      state.verify_email.loading = LoadingStates.rejected;
       // console.log('Email error:', payload);
     });
 
     //Login Thunk
     builder.addCase(loginThunk.pending, (state) => {
-      state.user.loading = LoadingStates.pending;
+      state.login_user.loading = LoadingStates.pending;
     });
     builder.addCase(loginThunk.fulfilled, (state, { payload }) => {
-      state.user.loading = LoadingStates.fulfilled;
+      state.login_user.loading = LoadingStates.fulfilled;
       console.log('Email verified:', payload);
     });
     builder.addCase(loginThunk.rejected, (state) => {
-      state.user.loading = LoadingStates.rejected;
+      state.login_user.loading = LoadingStates.rejected;
       // console.log('Email error:', payload);
     });
   },

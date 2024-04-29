@@ -25,7 +25,7 @@ export default function RegistrationPage() {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(true);
   const [answer, setAnswer] = useState(null);
   const [defaultCountry] = useState({ value: 'NGR', label: 'Nigeria' });
-  const { user, countries } = useSelector((state) => state.auth);
+  const { register_user, countries } = useSelector((state) => state.auth);
   const suffixIconTheme = { color: '#495057' };
   const countryOptions = countries.data.map(({ name, value }) => ({
     label: name,
@@ -40,14 +40,14 @@ export default function RegistrationPage() {
   }
 
   useEffect(() => {
-    if (user.loading === LoadingStates.fulfilled) {
-      toast.success(user.response.data.message);
+    if (register_user.loading === LoadingStates.fulfilled) {
+      toast.success(register_user.response.data.message);
       openPage(routeNames.verifyEmail);
-      console.log(user);
-    } else if (user.loading === LoadingStates.rejected) {
+      console.log(register_user);
+    } else if (register_user.loading === LoadingStates.rejected) {
       toast.error('Failed to register. Please try again.');
     }
-  }, [user.loading]);
+  }, [register_user.loading]);
 
   useEffect(() => {
     const data = {

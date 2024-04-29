@@ -8,21 +8,20 @@ import '../../../../core/uikit/InputGroup/InputGroup.css';
 import { verifyEmailThunk } from '../../authThunks.js';
 import '../RegistrationPage/RegistrationPage.css';
 import './VerifyEmailPage.css';
-import { PrimaryBtn, SquareCard } from '../../../../core/uikit';
+import { PrimaryBtn } from '../../../../core/uikit';
 import {
-  LoadingStates,
   getFromLocalStorage,
+  LoadingStates,
   removeFromLocalStorage,
 } from '../../../../core/toolkit/helpers';
 import { toast } from 'react-toastify';
-import { routeNames } from '../../../../core/navigation/routenames';
 
 export default function VerifyEmailPage() {
   const dispatch = useDispatch();
   const openPage = useNavigate();
   const [otp, setOtp] = useState('');
   const [otpVerified, setOtpVerified] = useState(false);
-  const { user } = useSelector((state) => state.auth);
+  const { verify_email } = useSelector((state) => state.auth);
 
   const {
     control,
@@ -37,14 +36,14 @@ export default function VerifyEmailPage() {
   });
 
   useEffect(() => {
-    if (user.loading === LoadingStates.fulfilled) {
-      console.log(user);
+    if (verify_email.loading === LoadingStates.fulfilled) {
+      console.log(verify_email);
       toast.success('Email verified successfully!');
       // openPage(routeNames.dashboard)
-    } else if (user.loading === LoadingStates.rejected) {
+    } else if (verify_email.loading === LoadingStates.rejected) {
       toast.error('Failed to verify email. Please try again.');
     }
-  }, [user.loading]);
+  }, [verify_email.loading]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
