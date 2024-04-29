@@ -13,6 +13,10 @@ import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { IconContext } from 'react-icons';
+import {
+  LoadingStates,
+  saveToLocalStorage,
+} from '../../../../core/toolkit/helpers';
 
 export default function RegistrationPage() {
   const [captcha, setCaptcha] = useState(false);
@@ -21,7 +25,7 @@ export default function RegistrationPage() {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(true);
   const [answer, setAnswer] = useState(null);
   const [defaultCountry] = useState({ value: 'NGR', label: 'Nigeria' });
-  const { countries } = useSelector((state) => state.auth);
+  const { user, countries } = useSelector((state) => state.auth);
   const suffixIconTheme = { color: '#495057' };
   const countryOptions = countries.data.map(({ name, value }) => ({
     label: name,
@@ -34,6 +38,18 @@ export default function RegistrationPage() {
   function openLogin() {
     openPage(routeNames.login);
   }
+
+  useEffect(() => {
+    if (user.loading === LoadingStates.fulfilled) {
+      toast.success(
+        'An otp has been sent to your mail box, Check your mail to veriy your email address',
+      );
+      openPage(routeNames.verifyEmail);
+      console.log(user);
+    } else if (user.loading === LoadingStates.rejected) {
+      toast.error('Failed to register. Please try again.');
+    }
+  }, [user.loading]);
 
   useEffect(() => {
     const data = {
@@ -90,6 +106,7 @@ export default function RegistrationPage() {
 
   const onSubmit = (formData) => {
     const { country, termsAndConditions, confirmPassword, ...rest } = formData;
+    saveToLocalStorage('userEmail', formData.email);
     console.log(formData);
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match. Please check your input.');

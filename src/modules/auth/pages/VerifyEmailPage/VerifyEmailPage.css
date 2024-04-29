@@ -3,8 +3,8 @@
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-  width: 60px !important;
-  height: 60px !important;
+  width: 65px !important;
+  height: 65px !important;
   text-align: center;
   border-radius: 20% !important;
   margin-top: 1.5rem !important;
@@ -16,7 +16,7 @@
   font-weight: 500 !important;
   line-height: 1.5 !important;
   border: 1px solid #28a745;
-  color: #28a745 !important;
+  color: #141313 !important;
   transition: #28a745 0.2s ease !important;
   background-color: #dee2e6 !important;
   border-color: transparent !important;
@@ -25,8 +25,8 @@
 /* Medium devices */
 @media (max-width: 768px) {
   .otp-input {
-    width: 50px !important;
-    height: 50px !important;
+    width: 60px !important;
+    height: 60px !important;
   }
 }
 

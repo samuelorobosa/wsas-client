@@ -1,20 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import OTPInput from 'react-otp-input';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../../../core/assets/logo.jpeg';
-import { PrimaryBtn, SquareCard } from '../../../../core/uikit';
 import '../../../../core/uikit/InputGroup/InputGroup.css';
 import { verifyEmailThunk } from '../../authThunks.js';
 import '../RegistrationPage/RegistrationPage.css';
 import './VerifyEmailPage.css';
+import { PrimaryBtn, SquareCard } from '../../../../core/uikit';
+import {
+  LoadingStates,
+  getFromLocalStorage,
+  removeFromLocalStorage,
+} from '../../../../core/toolkit/helpers';
+import { toast } from 'react-toastify';
+import { routeNames } from '../../../../core/navigation/routenames';
 
 export default function VerifyEmailPage() {
   const dispatch = useDispatch();
   const openPage = useNavigate();
   const [otp, setOtp] = useState('');
   const [otpVerified, setOtpVerified] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   const {
     control,
@@ -28,11 +36,24 @@ export default function VerifyEmailPage() {
     },
   });
 
+  useEffect(() => {
+    if (user.loading === LoadingStates.fulfilled) {
+      console.log(user);
+      toast.success('Email verified successfully!');
+      // openPage(routeNames.dashboard)
+    } else if (user.loading === LoadingStates.rejected) {
+      toast.error('Failed to verify email. Please try again.');
+    }
+  }, [user.loading]);
+
   const onSubmit = async (e) => {
     e.preventDefault();
+    const email = getFromLocalStorage('userEmail');
+    console.log(email);
 
     console.log(otp);
-    dispatch(verifyEmailThunk({ otp }));
+    dispatch(verifyEmailThunk({ otp, email }));
+    removeFromLocalStorage('userEmail');
   };
 
   return (
@@ -44,11 +65,11 @@ export default function VerifyEmailPage() {
             We<b>Shop</b>And<strong>Ship</strong>
           </h1>
         </div>
-        <SquareCard>
+        <div className="bg-white w-[500px] mb-4 mx-auto">
           <form className="reg-form" onSubmit={onSubmit}>
             <p className="form-label">Enter OTP sent to your email</p>
 
-            <div>
+            <div className="flex justify-center">
               <OTPInput
                 value={otp}
                 onChange={setOtp}
@@ -64,7 +85,7 @@ export default function VerifyEmailPage() {
 
             <PrimaryBtn type="submit" text="Submit" disabled={!otp} />
           </form>
-        </SquareCard>
+        </div>
       </center>
     </div>
   );
