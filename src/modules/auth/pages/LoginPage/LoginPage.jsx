@@ -24,7 +24,7 @@ export default function LoginPage() {
   const suffixIconTheme = { color: '#495057' };
   const { login_user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const openRoute = useNavigate();
+  const openPage = useNavigate();
 
   const {
     control,
