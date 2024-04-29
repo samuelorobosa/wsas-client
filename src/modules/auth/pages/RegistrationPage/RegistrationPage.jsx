@@ -20,6 +20,7 @@ import {
 
 export default function RegistrationPage() {
   const [captcha, setCaptcha] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [firstPasswordVisible, setFirstPasswordVisible] = useState(false);
   const [secondPasswordVisible, setSecondPasswordVisible] = useState(false);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(true);
@@ -41,11 +42,17 @@ export default function RegistrationPage() {
 
   useEffect(() => {
     if (register_user.loading === LoadingStates.fulfilled) {
-      toast.success(register_user.response.data.message);
+      setLoading(false);
+      toast.success(register_user.response?.data?.message);
+      console.log(register_user.response);
       openPage(routeNames.verifyEmail);
-      console.log(register_user);
     } else if (register_user.loading === LoadingStates.rejected) {
-      toast.error('Failed to register. Please try again.');
+      setLoading(false);
+      console.log(register_user.error);
+      toast.error(
+        register_user.error?.response?.data?.errorMessage ||
+          'Failed to register. Please try again.',
+      );
     }
   }, [register_user.loading]);
 
@@ -61,7 +68,7 @@ export default function RegistrationPage() {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     defaultValues: {
       firstname: '',
@@ -103,16 +110,16 @@ export default function RegistrationPage() {
   };
 
   const onSubmit = (formData) => {
+    setLoading(true);
     const { country, termsAndConditions, confirmPassword, ...rest } = formData;
     saveToLocalStorage('userEmail', formData.email);
-    console.log(formData);
+
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match. Please check your input.');
       return;
     }
 
     dispatch(registerUserThunk({ ...rest, country: formData.country.label }));
-    // openPage(routeNames.verifyEmail);
   };
 
   return (
@@ -132,7 +139,6 @@ export default function RegistrationPage() {
               name="firstname"
               suffixIcon={<FaUser />}
               suffixIconTheme={suffixIconTheme}
-              // {...register('firstName', { required: validationRules.required })}
               register={(name, rules) =>
                 register(name, { required: validationRules.required })
               }
@@ -291,7 +297,8 @@ export default function RegistrationPage() {
             <PrimaryBtn
               type="submit"
               text="Register"
-              disabled={isSubmitting || !captcha || !isTermsAndConditions}
+              disabled={!captcha || !isTermsAndConditions}
+              isLoading={loading}
             />
             <p className="alternate-auth">
               Already have an account?

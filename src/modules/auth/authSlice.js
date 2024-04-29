@@ -76,11 +76,11 @@ const authSlice = createSlice({
     });
     builder.addCase(verifyEmailThunk.fulfilled, (state, { payload }) => {
       state.verify_email.loading = LoadingStates.fulfilled;
-      console.log('Email verified:', payload);
+      state.verify_email.response = payload;
     });
-    builder.addCase(verifyEmailThunk.rejected, (state) => {
+    builder.addCase(verifyEmailThunk.rejected, (state, { payload }) => {
       state.verify_email.loading = LoadingStates.rejected;
-      // console.log('Email error:', payload);
+      state.verify_email.error = payload;
     });
 
     //Login Thunk
@@ -89,11 +89,12 @@ const authSlice = createSlice({
     });
     builder.addCase(loginThunk.fulfilled, (state, { payload }) => {
       state.login_user.loading = LoadingStates.fulfilled;
-      console.log('Email verified:', payload);
+      state.login_user.response = payload;
+      console.log('Login successful:', payload);
     });
-    builder.addCase(loginThunk.rejected, (state) => {
+    builder.addCase(loginThunk.rejected, (state, { payload }) => {
       state.login_user.loading = LoadingStates.rejected;
-      // console.log('Email error:', payload);
+      state.login_user.error = payload;
     });
   },
 });

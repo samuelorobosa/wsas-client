@@ -13,6 +13,7 @@ import {
   getFromLocalStorage,
   LoadingStates,
   removeFromLocalStorage,
+  saveToLocalStorage,
 } from '../../../../core/toolkit/helpers';
 import { toast } from 'react-toastify';
 
@@ -20,37 +21,32 @@ export default function VerifyEmailPage() {
   const dispatch = useDispatch();
   const openPage = useNavigate();
   const [otp, setOtp] = useState('');
+  const [loading, setLoading] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
   const { verify_email } = useSelector((state) => state.auth);
 
-  const {
-    control,
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    defaultValues: {
-      firstname: '',
-    },
-  });
-
   useEffect(() => {
     if (verify_email.loading === LoadingStates.fulfilled) {
-      console.log(verify_email);
-      toast.success('Email verified successfully!');
-      // openPage(routeNames.dashboard)
+      setLoading(false);
+      console.log(verify_email.response);
+      toast.success('Email verification successful!');
+      saveToLocalStorage('userToken', verify_email.response?.data?.token);
+      openPage(routeNames.dashboard);
     } else if (verify_email.loading === LoadingStates.rejected) {
-      toast.error('Failed to verify email. Please try again.');
+      setLoading(false);
+      toast.error(
+        verify_email.error?.response?.data?.errorMessage ||
+          'Failed to verify email. Please try again.',
+      );
+      console.log(verify_email.error);
     }
   }, [verify_email.loading]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const email = getFromLocalStorage('userEmail');
-    console.log(email);
 
-    console.log(otp);
     dispatch(verifyEmailThunk({ otp, email }));
     removeFromLocalStorage('userEmail');
   };
@@ -74,7 +70,6 @@ export default function VerifyEmailPage() {
                 onChange={setOtp}
                 numInputs={6}
                 inputStyle="otp-input"
-                //   separator={<span>-</span>}
                 isInputNum={true}
                 renderInput={(props) => (
                   <input {...props} type="number" pattern="\d*" />
@@ -82,7 +77,12 @@ export default function VerifyEmailPage() {
               />
             </div>
 
-            <PrimaryBtn type="submit" text="Submit" disabled={!otp} />
+            <PrimaryBtn
+              type="submit"
+              text="Submit"
+              disabled={!otp || loading}
+              isLoading={loading}
+            />
           </form>
         </div>
       </center>

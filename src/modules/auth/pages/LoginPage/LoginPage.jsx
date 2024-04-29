@@ -4,17 +4,25 @@ import { InputGroup, PrimaryBtn, SquareCard } from '../../../../core/uikit';
 import CaptchaInput from '../../components/CaptchaInput/CaptchaInput';
 import logo from '../../../../core/assets/logo.jpeg';
 import './LoginPage.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { routeNames } from '../../../../core/navigation/routenames';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { loginThunk } from '../../authThunks';
+import {
+  LoadingStates,
+  saveToLocalStorage,
+} from '../../../../core/toolkit/helpers';
+import { toast } from 'react-toastify';
 
 export default function LoginPage() {
   const [captcha, setCaptcha] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(true);
   const suffixIconTheme = { color: '#495057' };
+  const { login_user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const openRoute = useNavigate();
 
@@ -31,6 +39,24 @@ export default function LoginPage() {
     },
   });
 
+  const validationRules = {
+    required: 'This field is required',
+    minLength: {
+      value: 8,
+      message: 'Password must be at least 8 characters long',
+    },
+    pattern: {
+      value:
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
+      message:
+        'Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character',
+    },
+    emailValidation: {
+      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+      message: 'Invalid email address',
+    },
+  };
+
   const handleCaptchaUpdate = (value) => {
     setCaptcha(value);
   };
@@ -43,8 +69,25 @@ export default function LoginPage() {
     openRoute(routeNames.resetPassword);
   }
 
+  useEffect(() => {
+    if (login_user.loading === LoadingStates.fulfilled) {
+      setLoading(false);
+      toast.success('Login successful!');
+      console.log(login_user.response);
+      saveToLocalStorage('userToken', login_user.response?.data?.token);
+      openPage(routeNames.dashboard);
+    } else if (login_user.loading === LoadingStates.rejected) {
+      setLoading(false);
+      console.log(login_user.error.response.data.errorMessage);
+      toast.error(
+        login_user.error?.response?.data?.errorMessage ||
+          'Failed to login. Please try again.',
+      );
+    }
+  }, [login_user.loading]);
+
   const onSubmit = (data) => {
-    console.log(data);
+    setLoading(true);
     dispatch(loginThunk(data));
   };
 
@@ -61,28 +104,62 @@ export default function LoginPage() {
           <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
             <p className="form-label">Sign in to your account</p>
             <InputGroup
-              register={register}
               placeholder="Email"
               name="email"
               suffixIcon={<FaEnvelope />}
               suffixIconTheme={suffixIconTheme}
+              register={(name, rules) =>
+                register(name, {
+                  required: validationRules.required,
+                  pattern: validationRules.emailValidation,
+                })
+              }
+              errorMessage={errors.email ? errors.email.message : ''}
             />
-            <InputGroup
-              register={register}
-              placeholder="Password"
-              name="password"
-              suffixIcon={passwordIsVisible ? <FaEye /> : <FaEyeSlash />}
-              suffixIconTheme={suffixIconTheme}
-              obscureText={!passwordIsVisible}
-              onTapSuffix={() => setPasswordIsVisible(!passwordIsVisible)}
+            <div>
+              <div className="input-group">
+                <input
+                  className="input-group-input"
+                  type={!passwordIsVisible ? 'password' : 'text'}
+                  placeholder="Password"
+                  name="password"
+                  {...register('password', {
+                    required: validationRules.required,
+                    minLength: validationRules.minLength,
+                    pattern: validationRules.pattern,
+                  })}
+                />
+                <figure
+                  className="input-suffix-icon"
+                  onClick={() => setPasswordIsVisible(!passwordIsVisible)}
+                >
+                  {passwordIsVisible ? <FaEye /> : <FaEyeSlash />}
+                </figure>
+              </div>
+              <div className="input-error">
+                {errors.password && <span>{errors.password.message}</span>}
+              </div>
+            </div>
+
+            <CaptchaInput
+              onChange={handleCaptchaUpdate}
+              isCorrect={isAnswerCorrect}
             />
-            <CaptchaInput onChange={handleCaptchaUpdate} />
+            <div className="robot-error">
+              {!isAnswerCorrect && <p>Incorrect answer. Please try again.</p>}
+            </div>
+
             <div className="forgot-password-wrap">
               <button onClick={openResetPassword} className="forgot-password">
                 Forgot password?
               </button>
             </div>
-            <PrimaryBtn text="Login" />
+            <PrimaryBtn
+              type="submit"
+              text="Login"
+              disabled={loading || !captcha}
+              isLoading={loading}
+            />
             <p className="alternate-auth">
               Don't have an account?
               <button onClick={openSignup}>Register</button>
