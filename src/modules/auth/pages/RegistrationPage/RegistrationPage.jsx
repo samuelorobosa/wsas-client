@@ -41,9 +41,7 @@ export default function RegistrationPage() {
 
   useEffect(() => {
     if (user.loading === LoadingStates.fulfilled) {
-      toast.success(
-        'An otp has been sent to your mail box, Check your mail to veriy your email address',
-      );
+      toast.success(user.response.data.message);
       openPage(routeNames.verifyEmail);
       console.log(user);
     } else if (user.loading === LoadingStates.rejected) {

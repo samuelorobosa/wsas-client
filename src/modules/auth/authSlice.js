@@ -14,7 +14,9 @@ const initialState = {
   },
   user: {
     loading: LoadingStates.base,
-    data: [],
+    data: {},
+    response: null,
+    error: null,
   },
 };
 
@@ -49,11 +51,11 @@ const authSlice = createSlice({
     });
     builder.addCase(registerUserThunk.fulfilled, (state, { payload }) => {
       state.user.loading = LoadingStates.fulfilled;
-      console.log('User registered:', payload);
+      state.user.response = payload;
     });
     builder.addCase(registerUserThunk.rejected, (state, { payload }) => {
       state.user.loading = LoadingStates.rejected;
-      console.log('User rejected:', payload);
+      state.user.error = payload;
     });
 
     //Verify Email Thunk
