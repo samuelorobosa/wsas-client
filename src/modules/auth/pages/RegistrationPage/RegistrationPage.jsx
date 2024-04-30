@@ -3,21 +3,32 @@ import { InputGroup, PrimaryBtn, SquareCard } from '../../../../core/uikit';
 import CaptchaInput from '../../components/CaptchaInput/CaptchaInput';
 import logo from '../../../../core/assets/logo.jpeg';
 import './RegistrationPage.css';
+import '../../../../core/uikit/InputGroup/InputGroup.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { routeNames } from '../../../../core/navigation/routenames';
 import { useEffect, useState } from 'react';
-import { getCountriesThunk } from '../../authThunks.js';
+import { getCountriesThunk, registerUserThunk } from '../../authThunks.js';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
+import { toast } from 'react-toastify';
+import { IconContext } from 'react-icons';
+import {
+  LoadingStates,
+  saveToLocalStorage,
+} from '../../../../core/toolkit/helpers';
 
 export default function RegistrationPage() {
   const [captcha, setCaptcha] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [firstPasswordVisible, setFirstPasswordVisible] = useState(false);
   const [secondPasswordVisible, setSecondPasswordVisible] = useState(false);
-  const { countries } = useSelector((state) => state.auth);
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(true);
+  const [answer, setAnswer] = useState(null);
+  const [defaultCountry] = useState({ value: 'NGR', label: 'Nigeria' });
+  const { register_user, countries } = useSelector((state) => state.auth);
   const suffixIconTheme = { color: '#495057' };
-  const countryOptions = countries.map(({ name, value }) => ({
+  const countryOptions = countries.data.map(({ name, value }) => ({
     label: name,
     value,
   }));
@@ -28,6 +39,22 @@ export default function RegistrationPage() {
   function openLogin() {
     openPage(routeNames.login);
   }
+
+  useEffect(() => {
+    if (register_user.loading === LoadingStates.fulfilled) {
+      setLoading(false);
+      toast.success(register_user.response?.data?.message);
+      console.log(register_user.response);
+      openPage(routeNames.verifyEmail);
+    } else if (register_user.loading === LoadingStates.rejected) {
+      setLoading(false);
+      console.log(register_user.error);
+      toast.error(
+        register_user.error?.response?.data?.errorMessage ||
+          'Failed to register. Please try again.',
+      );
+    }
+  }, [register_user.loading]);
 
   useEffect(() => {
     const data = {
@@ -44,31 +71,55 @@ export default function RegistrationPage() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      firstname: '',
+      lastname: '',
       username: '',
       email: '',
       password: '',
       confirmPassword: '',
       country: {
-        label: '',
-        value: '',
+        label: 'Nigeria',
+        value: 'NGR',
       },
-      phoneNumber: '',
+      phone: '',
     },
   });
+
+  const validationRules = {
+    required: 'This field is required',
+    minLength: {
+      value: 8,
+      message: 'Password must be at least 8 characters long',
+    },
+    pattern: {
+      value:
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
+      message:
+        'Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character',
+    },
+    emailValidation: {
+      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+      message: 'Invalid email address',
+    },
+  };
+
+  const isTermsAndConditions = watch('termsAndConditions');
 
   const handleCaptchaUpdate = (value) => {
     setCaptcha(value);
   };
 
-  const onSubmit = (data) => {
-    window.alert(
-      JSON.stringify({
-        data,
-        captcha,
-      }),
-    );
+  const onSubmit = (formData) => {
+    setLoading(true);
+    const { country, termsAndConditions, confirmPassword, ...rest } = formData;
+    saveToLocalStorage('userEmail', formData.email);
+
+    if (formData.password !== formData.confirmPassword) {
+      toast.error('Passwords do not match. Please check your input.');
+      return;
+    }
+
+    dispatch(registerUserThunk({ ...rest, country: formData.country.label }));
   };
 
   return (
@@ -85,52 +136,109 @@ export default function RegistrationPage() {
             <p className="form-label">Create a new account</p>
             <InputGroup
               placeholder="First Name"
-              name="firstName"
+              name="firstname"
               suffixIcon={<FaUser />}
               suffixIconTheme={suffixIconTheme}
-              register={register}
+              register={(name, rules) =>
+                register(name, { required: validationRules.required })
+              }
+              errorMessage={errors.firstname ? errors.firstname.message : ''}
             />
+
             <InputGroup
               placeholder="Last Name"
-              name="lastName"
+              name="lastname"
               suffixIcon={<FaUser />}
               suffixIconTheme={suffixIconTheme}
-              register={register}
+              register={(name, rules) =>
+                register(name, { required: validationRules.required })
+              }
+              errorMessage={errors.lastname ? errors.lastname.message : ''}
             />
+
             <InputGroup
               placeholder="Username"
               name="username"
               suffixIcon={<FaUser />}
               suffixIconTheme={suffixIconTheme}
-              register={register}
+              register={(name, rules) =>
+                register(name, { required: validationRules.required })
+              }
+              errorMessage={errors.username ? errors.username.message : ''}
             />
+
             <InputGroup
               placeholder="Email"
               name="email"
               suffixIcon={<FaEnvelope />}
               suffixIconTheme={suffixIconTheme}
-              register={register}
-            />
-            <InputGroup
-              placeholder="Password"
-              name="password"
-              suffixIcon={firstPasswordVisible ? <FaEye /> : <FaEyeSlash />}
-              suffixIconTheme={suffixIconTheme}
-              obscureText={!firstPasswordVisible}
-              onTapSuffix={() => setFirstPasswordVisible(!firstPasswordVisible)}
-              register={register}
-            />
-            <InputGroup
-              placeholder="Confirm Password"
-              name="confirmPassword"
-              suffixIcon={secondPasswordVisible ? <FaEye /> : <FaEyeSlash />}
-              suffixIconTheme={suffixIconTheme}
-              obscureText={!secondPasswordVisible}
-              onTapSuffix={() =>
-                setSecondPasswordVisible(!secondPasswordVisible)
+              register={(name, rules) =>
+                register(name, {
+                  required: validationRules.required,
+                  pattern: validationRules.emailValidation,
+                })
               }
-              register={register}
+              errorMessage={errors.email ? errors.email.message : ''}
             />
+
+            <div>
+              <div className="input-group">
+                <input
+                  className="input-group-input"
+                  type={!firstPasswordVisible ? 'password' : 'text'}
+                  placeholder="Password"
+                  name="password"
+                  {...register('password', {
+                    required: validationRules.required,
+                    minLength: validationRules.minLength,
+                    pattern: validationRules.pattern,
+                  })}
+                />
+                <figure
+                  className="input-suffix-icon"
+                  onClick={() => setFirstPasswordVisible(!firstPasswordVisible)}
+                >
+                  <IconContext.Provider value={suffixIconTheme}>
+                    {firstPasswordVisible ? <FaEye /> : <FaEyeSlash />}
+                  </IconContext.Provider>
+                </figure>
+              </div>
+              <div className="input-error">
+                {errors.password && <span>{errors.password.message}</span>}
+              </div>
+            </div>
+
+            <div>
+              <div className="input-group">
+                <input
+                  className="input-group-input"
+                  type={!secondPasswordVisible ? 'password' : 'text'}
+                  placeholder="Confirm Password"
+                  name="confirmPassword"
+                  {...register('confirmPassword', {
+                    required: validationRules.required,
+                    minLength: validationRules.minLength,
+                    pattern: validationRules.pattern,
+                  })}
+                />
+                <figure
+                  className="input-suffix-icon"
+                  onClick={() =>
+                    setSecondPasswordVisible(!secondPasswordVisible)
+                  }
+                >
+                  <IconContext.Provider value={suffixIconTheme}>
+                    {secondPasswordVisible ? <FaEye /> : <FaEyeSlash />}
+                  </IconContext.Provider>
+                </figure>
+              </div>
+              <div className="input-error">
+                {errors.confirmPassword && (
+                  <span>{errors.confirmPassword.message}</span>
+                )}
+              </div>
+            </div>
+
             {countryOptions && (
               <Controller
                 control={control}
@@ -138,9 +246,8 @@ export default function RegistrationPage() {
                 render={({ field }) => (
                   <Select
                     {...field}
-                    placeholder="Select a country"
                     isClearable={false}
-                    isSearchable={false}
+                    isSearchable={true}
                     options={countryOptions}
                     unstyled={true}
                     classNames={{
@@ -158,17 +265,27 @@ export default function RegistrationPage() {
 
             <InputGroup
               placeholder="Phone Number"
-              name="phoneNumber"
+              name="phone"
               suffixIcon={<FaPhone />}
               suffixIconTheme={suffixIconTheme}
-              register={register}
+              register={(name, rules) =>
+                register(name, { required: validationRules.required })
+              }
+              errorMessage={errors.phone ? errors.phone.message : ''}
             />
-            <CaptchaInput onChange={handleCaptchaUpdate} />
+            <CaptchaInput
+              onChange={handleCaptchaUpdate}
+              isCorrect={isAnswerCorrect}
+            />
+            <div className="robot-error">
+              {!isAnswerCorrect && <p>Incorrect answer. Please try again.</p>}
+            </div>
             <div className="t-and-c">
               <input
                 {...register('termsAndConditions')}
                 className="checkbox"
                 type="checkbox"
+                required
               />
               <label htmlFor="agreedToTerms" className="checkbox-label">
                 {'I agree to the '}
@@ -177,7 +294,12 @@ export default function RegistrationPage() {
                 </span>
               </label>
             </div>
-            <PrimaryBtn text="Register" />
+            <PrimaryBtn
+              type="submit"
+              text="Register"
+              disabled={!captcha || !isTermsAndConditions}
+              isLoading={loading}
+            />
             <p className="alternate-auth">
               Already have an account?
               <button onClick={openLogin}>Login</button>

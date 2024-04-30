@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --grey-main: #c2c7d0;
   --grey-dark: #495057;
@@ -13,7 +17,8 @@
 
 body {
   background-color: var(--page-bg);
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif, sans-serif;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif,
+    sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
