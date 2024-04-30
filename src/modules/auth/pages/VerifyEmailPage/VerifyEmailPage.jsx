@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import OTPInput from 'react-otp-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +15,7 @@ import {
   saveToLocalStorage,
 } from '../../../../core/toolkit/helpers';
 import { toast } from 'react-toastify';
+import { routeNames } from '../../../../core/navigation/routenames.js';
 
 export default function VerifyEmailPage() {
   const dispatch = useDispatch();
