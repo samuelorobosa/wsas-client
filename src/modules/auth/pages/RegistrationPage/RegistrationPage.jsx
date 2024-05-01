@@ -43,7 +43,9 @@ export default function RegistrationPage() {
   useEffect(() => {
     if (register_user.loading === LoadingStates.fulfilled) {
       setLoading(false);
-      toast.success(register_user.response?.data?.message);
+      toast.success(
+        register_user.response?.data?.message || 'Registration successful!',
+      );
       console.log(register_user.response);
       openPage(routeNames.verifyEmail);
     } else if (register_user.loading === LoadingStates.rejected) {

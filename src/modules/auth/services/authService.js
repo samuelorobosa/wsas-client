@@ -23,3 +23,11 @@ export const verifyEmail = async (data) => {
 export const login = async (data) => {
   return await authServiceClient.post(authUrls.login, data);
 };
+
+export const forgotPassword = async (data) => {
+  return await authServiceClient.post(authUrls.forgotPassword, data);
+};
+
+export const resetPassword = async (data) => {
+  return await authServiceClient.post(authUrls.resetPassword, data);
+};

@@ -21,5 +21,6 @@ export const routeNames = {
   register: '/register',
   verifyEmail: '/verify-email',
   resetPassword: '/reset-password',
+  forgotPassword: '/forgot-password',
   termsAndConditions: '/terms-and-conditions',
 };

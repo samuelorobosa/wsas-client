@@ -17,6 +17,7 @@ import RequestShipping from '../../modules/user/pages/RequestShipping/RequestShi
 import RequestExpressCourierService from '../../modules/user/pages/RequestExpressCourierService/RequestExpressCourierService.jsx';
 import TermsAndConditionsPage from '../../modules/auth/pages/TermsAndConditionsPage.jsx/TermsAndConditionsPage';
 import VerifyEmailPage from '../../modules/auth/pages/VerifyEmailPage/VerifyEmailPage';
+import ForgotPasswordPage from '../../modules/auth/pages/ForgotPasswordPage/ForgotPasswordPage';
 
 const appRouter = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ const appRouter = createBrowserRouter([
   {
     path: routeNames.resetPassword,
     element: <ResetPasswordPage />,
+  },
+  {
+    path: routeNames.forgotPassword,
+    element: <ForgotPasswordPage />,
   },
   {
     path: routeNames.termsAndConditions,

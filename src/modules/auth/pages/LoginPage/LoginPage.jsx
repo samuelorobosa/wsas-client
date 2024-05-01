@@ -65,8 +65,8 @@ export default function LoginPage() {
     openRoute(routeNames.register);
   }
 
-  function openResetPassword() {
-    openRoute(routeNames.resetPassword);
+  function openForgotPassword() {
+    openRoute(routeNames.forgotPassword);
   }
 
   useEffect(() => {
@@ -150,7 +150,7 @@ export default function LoginPage() {
             </div>
 
             <div className="forgot-password-wrap">
-              <button onClick={openResetPassword} className="forgot-password">
+              <button onClick={openForgotPassword} className="forgot-password">
                 Forgot password?
               </button>
             </div>

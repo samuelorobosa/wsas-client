@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  forgotPasswordThunk,
   getCountriesThunk,
   loginThunk,
   registerUserThunk,
+  resetPasswordThunk,
   verifyEmailThunk,
 } from './authThunks.js';
 import { LoadingStates } from '../../core/toolkit/helpers.js';
@@ -25,6 +27,18 @@ const initialState = {
     error: null,
   },
   login_user: {
+    loading: LoadingStates.base,
+    data: {},
+    response: null,
+    error: null,
+  },
+  forgot_password: {
+    loading: LoadingStates.base,
+    data: {},
+    response: null,
+    error: null,
+  },
+  reset_password: {
     loading: LoadingStates.base,
     data: {},
     response: null,
@@ -95,6 +109,34 @@ const authSlice = createSlice({
     builder.addCase(loginThunk.rejected, (state, { payload }) => {
       state.login_user.loading = LoadingStates.rejected;
       state.login_user.error = payload;
+    });
+
+    //Forgot Password Thunk
+    builder.addCase(forgotPasswordThunk.pending, (state) => {
+      state.forgot_password.loading = LoadingStates.pending;
+    });
+    builder.addCase(forgotPasswordThunk.fulfilled, (state, { payload }) => {
+      state.forgot_password.loading = LoadingStates.fulfilled;
+      state.forgot_password.response = payload;
+      console.log('Forgot password successful:', payload);
+    });
+    builder.addCase(forgotPasswordThunk.rejected, (state, { payload }) => {
+      state.forgot_password.loading = LoadingStates.rejected;
+      state.forgot_password.error = payload;
+    });
+
+    //Reset Password Thunk
+    builder.addCase(resetPasswordThunk.pending, (state) => {
+      state.reset_password.loading = LoadingStates.pending;
+    });
+    builder.addCase(resetPasswordThunk.fulfilled, (state, { payload }) => {
+      state.reset_password.loading = LoadingStates.fulfilled;
+      state.reset_password.response = payload;
+      console.log('Reset password successful:', payload);
+    });
+    builder.addCase(resetPasswordThunk.rejected, (state, { payload }) => {
+      state.reset_password.loading = LoadingStates.rejected;
+      state.reset_password.error = payload;
     });
   },
 });

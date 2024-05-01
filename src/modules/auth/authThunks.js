@@ -1,8 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
+  forgotPassword,
   getCountries,
   login,
   registerUser,
+  resetPassword,
   verifyEmail,
 } from './services/authService.js';
 
@@ -49,6 +51,32 @@ export const loginThunk = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const response = await login(data);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err);
+    }
+  },
+);
+
+export const forgotPasswordThunk = createAsyncThunk(
+  'auth/forgotPassword',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await forgotPassword(data);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err);
+    }
+  },
+);
+
+export const resetPasswordThunk = createAsyncThunk(
+  'auth/resetPassword',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await resetPassword(data);
       return response.data;
     } catch (err) {
       console.log(err);
