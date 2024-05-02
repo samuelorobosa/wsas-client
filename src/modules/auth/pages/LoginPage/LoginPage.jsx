@@ -26,11 +26,16 @@ export default function LoginPage() {
   const dispatch = useDispatch();
   const openPage = useNavigate();
 
+  const profileRoute = {
+    dashboard: {
+      profile: '/dashboard/profile',
+    },
+  };
+
   const {
     control,
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -61,21 +66,13 @@ export default function LoginPage() {
     setCaptcha(value);
   };
 
-  function openSignup() {
-    openRoute(routeNames.register);
-  }
-
-  function openForgotPassword() {
-    openRoute(routeNames.forgotPassword);
-  }
-
   useEffect(() => {
     if (login_user.loading === LoadingStates.fulfilled) {
       setLoading(false);
       toast.success('Login successful!');
       console.log(login_user.response);
       saveToLocalStorage('userToken', login_user.response?.data?.token);
-      openPage(routeNames.dashboard);
+      openPage(profileRoute.dashboard.profile);
     } else if (login_user.loading === LoadingStates.rejected) {
       setLoading(false);
       console.log(login_user.error.response.data.errorMessage);
@@ -150,9 +147,9 @@ export default function LoginPage() {
             </div>
 
             <div className="forgot-password-wrap">
-              <button onClick={openForgotPassword} className="forgot-password">
+              <a href="/forgot-password" className="forgot-password">
                 Forgot password?
-              </button>
+              </a>
             </div>
             <PrimaryBtn
               type="submit"
@@ -162,7 +159,7 @@ export default function LoginPage() {
             />
             <p className="alternate-auth">
               Don't have an account?
-              <button onClick={openSignup}>Register</button>
+              <a href="/register">Register</a>
             </p>
           </form>
         </SquareCard>

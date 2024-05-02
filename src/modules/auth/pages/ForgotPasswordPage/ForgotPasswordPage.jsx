@@ -26,7 +26,6 @@ export default function ForgotPasswordPage() {
   const openPage = useNavigate();
 
   const {
-    control,
     register,
     handleSubmit,
     watch,
@@ -72,10 +71,6 @@ export default function ForgotPasswordPage() {
     dispatch(forgotPasswordThunk(data));
   };
 
-  function openSignup() {
-    openRoute(routeNames.register);
-  }
-
   return (
     <div className="reset-password-page">
       <center>
@@ -118,7 +113,7 @@ export default function ForgotPasswordPage() {
             />
             <p className="alternate-auth">
               Don't have an account?
-              <button onClick={openSignup}>Register</button>
+              <a href="/register">Register</a>
             </p>
           </form>
         </SquareCard>

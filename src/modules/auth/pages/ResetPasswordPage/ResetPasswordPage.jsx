@@ -19,7 +19,6 @@ import CaptchaInput from '../../components/CaptchaInput/CaptchaInput';
 import './ResetPasswordPage.css';
 
 export default function ResetPasswordPage() {
-  const suffixIconTheme = { color: '#495057' };
   const [captcha, setCaptcha] = useState(false);
   const [loading, setLoading] = useState(false);
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
@@ -34,7 +33,6 @@ export default function ResetPasswordPage() {
     control,
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -159,7 +157,7 @@ export default function ResetPasswordPage() {
             />
             <p className="alternate-auth">
               Don't have an account?
-              <button onClick={openSignup}>Register</button>
+              <a href="/register">Register</a>
             </p>
           </form>
         </SquareCard>

@@ -82,7 +82,7 @@
   line-height: 1.5rem;
 }
 
-.alternate-auth button {
+.alternate-auth a {
   border: none;
   background-color: transparent;
   margin-left: 4px;

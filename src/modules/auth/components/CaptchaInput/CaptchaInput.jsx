@@ -47,7 +47,6 @@ export default function CaptchaInput({ onChange }) {
           type="text"
           name="captcha"
           onInput={handleChange}
-          required
         />
       </div>
       <div className="robot-error">

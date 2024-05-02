@@ -24,8 +24,6 @@ export default function RegistrationPage() {
   const [firstPasswordVisible, setFirstPasswordVisible] = useState(false);
   const [secondPasswordVisible, setSecondPasswordVisible] = useState(false);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(true);
-  const [answer, setAnswer] = useState(null);
-  const [defaultCountry] = useState({ value: 'NGR', label: 'Nigeria' });
   const { register_user, countries } = useSelector((state) => state.auth);
   const suffixIconTheme = { color: '#495057' };
   const countryOptions = countries.data.map(({ name, value }) => ({
@@ -35,10 +33,6 @@ export default function RegistrationPage() {
 
   const dispatch = useDispatch();
   const openPage = useNavigate();
-
-  function openLogin() {
-    openPage(routeNames.login);
-  }
 
   useEffect(() => {
     if (register_user.loading === LoadingStates.fulfilled) {
@@ -292,7 +286,7 @@ export default function RegistrationPage() {
               <label htmlFor="agreedToTerms" className="checkbox-label">
                 {'I agree to the '}
                 <span>
-                  <a href="#">terms and conditions</a>
+                  <a href="/terms-and-conditions">terms and conditions</a>
                 </span>
               </label>
             </div>
@@ -304,7 +298,7 @@ export default function RegistrationPage() {
             />
             <p className="alternate-auth">
               Already have an account?
-              <button onClick={openLogin}>Login</button>
+              <a href="/login">Login</a>
             </p>
           </form>
         </SquareCard>
