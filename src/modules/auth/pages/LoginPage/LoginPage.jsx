@@ -26,6 +26,12 @@ export default function LoginPage() {
   const dispatch = useDispatch();
   const openPage = useNavigate();
 
+  const profileRoute = {
+    dashboard: {
+      profile: '/dashboard/profile',
+    },
+  };
+
   const {
     control,
     register,
@@ -65,8 +71,8 @@ export default function LoginPage() {
       setLoading(false);
       toast.success('Login successful!');
       console.log(login_user.response);
-      // saveToLocalStorage('userToken', login_user.response?.data?.token);
-      // openPage(routeNames.verifyEmail);
+      saveToLocalStorage('userToken', login_user.response?.data?.token);
+      openPage(profileRoute.dashboard.profile);
     } else if (login_user.loading === LoadingStates.rejected) {
       setLoading(false);
       console.log(login_user.error?.response?.data?.errorMessage);
@@ -79,7 +85,6 @@ export default function LoginPage() {
 
   const onSubmit = (data) => {
     setLoading(true);
-    saveToLocalStorage('userEmail', data.email);
     dispatch(loginThunk(data));
   };
 
