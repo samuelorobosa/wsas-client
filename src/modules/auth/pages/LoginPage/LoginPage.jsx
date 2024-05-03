@@ -26,12 +26,6 @@ export default function LoginPage() {
   const dispatch = useDispatch();
   const openPage = useNavigate();
 
-  const profileRoute = {
-    dashboard: {
-      profile: '/dashboard/profile',
-    },
-  };
-
   const {
     control,
     register,
@@ -71,11 +65,11 @@ export default function LoginPage() {
       setLoading(false);
       toast.success('Login successful!');
       console.log(login_user.response);
-      saveToLocalStorage('userToken', login_user.response?.data?.token);
-      openPage(profileRoute.dashboard.profile);
+      // saveToLocalStorage('userToken', login_user.response?.data?.token);
+      // openPage(routeNames.verifyEmail);
     } else if (login_user.loading === LoadingStates.rejected) {
       setLoading(false);
-      console.log(login_user.error.response.data.errorMessage);
+      console.log(login_user.error?.response?.data?.errorMessage);
       toast.error(
         login_user.error?.response?.data?.errorMessage ||
           'Failed to login. Please try again.',
@@ -85,6 +79,7 @@ export default function LoginPage() {
 
   const onSubmit = (data) => {
     setLoading(true);
+    saveToLocalStorage('userEmail', data.email);
     dispatch(loginThunk(data));
   };
 

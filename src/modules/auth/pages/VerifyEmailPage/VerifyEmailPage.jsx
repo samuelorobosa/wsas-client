@@ -25,13 +25,19 @@ export default function VerifyEmailPage() {
   const [otpVerified, setOtpVerified] = useState(false);
   const { verify_email } = useSelector((state) => state.auth);
 
+  const profileRoute = {
+    dashboard: {
+      profile: '/dashboard/profile',
+    },
+  };
+
   useEffect(() => {
     if (verify_email.loading === LoadingStates.fulfilled) {
       setLoading(false);
       console.log(verify_email.response);
       toast.success('Email verification successful!');
       saveToLocalStorage('userToken', verify_email.response?.data?.token);
-      openPage(routeNames.dashboard);
+      openPage(profileRoute.dashboard.profile);
     } else if (verify_email.loading === LoadingStates.rejected) {
       setLoading(false);
       toast.error(
