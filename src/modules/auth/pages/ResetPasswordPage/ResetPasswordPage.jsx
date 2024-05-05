@@ -45,7 +45,7 @@ export default function ResetPasswordPage() {
       setLoading(false);
       toast.success('Password successfully reset!');
       removeFromLocalStorage('userEmail');
-      openPage(routeNames.dashboard);
+      openPage(routeNames.login);
     } else if (reset_password.loading === LoadingStates.rejected) {
       setLoading(false);
       console.log(reset_password.error.response?.data?.errorMessage);

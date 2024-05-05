@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import { useState, useEffect } from 'react';
 import './ProfilePage.css';
-import { FaEye, FaEyeSlash, FaUser } from 'react-icons/fa';
+import { FaGlobe, FaHome, FaUser } from 'react-icons/fa';
 import userProfile from '../../../../core/assets/user_profile.svg';
 import { InputGroup } from '../../../../core/uikit/index.js';
 import { MdEmail } from 'react-icons/md';
@@ -11,15 +11,22 @@ import Button from '../../../../core/uikit/Button/Button.jsx';
 import { IoIosSwap, IoMdNotificationsOutline } from 'react-icons/io';
 import Modal from '../../../../core/uikit/Modal/Modal.jsx';
 import OutsideClickHandler from 'react-outside-click-handler/esm/OutsideClickHandler.js';
-import { getProfileThunk } from '../../profileThunks';
+import { editProfileThunk, getProfileThunk } from '../../profileThunks';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { LoadingStates } from '../../../../core/toolkit/helpers';
+import Skeleton from 'react-loading-skeleton';
+import { useForm } from 'react-hook-form';
 
 export default function ProfilePage() {
   const [editMode, enableEditMode] = useState(false);
-  const [name] = useState('John Doe');
-  const [email] = useState('johndoe@gmail.com');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [country, setCountry] = useState('');
+  const [userId, setUserId] = useState('');
+  const [userData, setUserData] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { get_profile } = useSelector((state) => state.profile);
@@ -30,7 +37,14 @@ export default function ProfilePage() {
   useEffect(() => {
     if (get_profile.loading === LoadingStates.fulfilled) {
       setLoading(false);
-      console.log(get_profile.response);
+      const response = get_profile.response.data;
+      setUserData(response);
+      setName(`${response.firstname} ${response.lastname}`);
+      setEmail(response.email);
+      setUsername(response.username);
+      setCountry(response.country);
+      setUserId(response.id);
+      setPhoneNumber(response.phone);
     } else if (get_profile.loading === LoadingStates.rejected) {
       setLoading(false);
       console.log(get_profile.error);
@@ -38,6 +52,7 @@ export default function ProfilePage() {
   }, [get_profile.loading]);
 
   useEffect(() => {
+    setLoading(true);
     dispatch(getProfileThunk());
   }, []);
 
@@ -96,8 +111,12 @@ export default function ProfilePage() {
                   <img src={userProfile} alt="User Profile Image" />
                 </figure>
                 <div className="user__profile__content">
-                  <div className="user__profile__content__name">{name}</div>
-                  <div className="user__profile__content__email">{email}</div>
+                  <div className="user__profile__content__name">
+                    {name || <Skeleton height={20} width={150} />}
+                  </div>
+                  <div className="user__profile__content__email">
+                    {email || <Skeleton height={20} width={150} />}
+                  </div>
                 </div>
               </div>
               <div className="user__profile__right">
@@ -112,9 +131,9 @@ export default function ProfilePage() {
               </div>
             </div>
             {editMode ? (
-              <ProfilePage.EditableForm />
+              <ProfilePage.EditableForm userData={userData} />
             ) : (
-              <ProfilePage.NonEditableForm />
+              <ProfilePage.NonEditableForm userData={userData} />
             )}
           </section>
         </aside>
@@ -123,37 +142,47 @@ export default function ProfilePage() {
   );
 }
 
-ProfilePage.EditableForm = () => {
-  const [phone, setPhone] = useState('');
-  const [firstPasswordVisible, setFirstPasswordVisibility] = useState(false);
-  const [secondPasswordVisible, setSecondPasswordVisibility] = useState(false);
-  const suffixIconTheme = { color: '#B0B7C3' };
-  const toggleFirstPasswordVisibility = () => {
-    setFirstPasswordVisibility(!firstPasswordVisible);
+ProfilePage.EditableForm = ({ userData }) => {
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      firstname: userData?.firstname,
+      lastname: userData?.lastname,
+      username: userData?.username,
+      email: userData?.email,
+      country: userData?.country,
+      phone: userData?.phone,
+      address: userData?.address,
+    },
+  });
+
+  const onSubmit = (formData) => {
+    setLoading(true);
+    console.log(formData);
+
+    dispatch(editProfileThunk(formData));
   };
 
-  const toggleSecondPasswordVisibility = () => {
-    setSecondPasswordVisibility(!secondPasswordVisible);
-  };
   return (
-    <form action="">
+    <form onSubmit={handleSubmit(onSubmit)}>
       <section className="form__sections">
         <div className="form-group-input">
           <InputGroup
-            name="first_name"
-            onChange={() => console.log(null)}
-            placeholder="Enter your first name"
+            name="firstname"
             suffixIcon={<FaUser />}
             suffixIconTheme={{ color: '#B0B7C3' }}
+            register={(name) => register(name)}
           />
         </div>
         <div className="form-group-input">
           <InputGroup
-            name="last__name"
-            onChange={() => console.log(null)}
-            placeholder="Enter your last name"
+            name="lastname"
             suffixIcon={<FaUser />}
             suffixIconTheme={{ color: '#B0B7C3' }}
+            register={(name) => register(name)}
           />
         </div>
       </section>
@@ -161,51 +190,55 @@ ProfilePage.EditableForm = () => {
         <div className="form-group-input">
           <InputGroup
             name="email"
-            onChange={() => console.log(null)}
-            placeholder="Enter your email"
             suffixIcon={<MdEmail />}
             suffixIconTheme={{ color: '#B0B7C3' }}
+            register={(name) => register(name)}
           />
         </div>
         <div className="form-group-input">
           <PhoneInput
             country="ng"
-            value={phone}
-            placeholder="Enter your phone number"
-            onChange={(phone) => setPhone(phone)}
+            name="phone"
+            register={(name) => register(name)}
           />
         </div>
       </section>
       <section className="form__sections">
         <div className="form-group-input">
           <InputGroup
-            placeholder="Password"
-            name="password"
-            suffixIcon={firstPasswordVisible ? <FaEye /> : <FaEyeSlash />}
-            suffixIconTheme={suffixIconTheme}
-            obscureText={!firstPasswordVisible}
-            onTapSuffix={() => toggleFirstPasswordVisibility()}
+            name="username"
+            suffixIcon={<FaUser />}
+            suffixIconTheme={{ color: '#B0B7C3' }}
+            register={(name) => register(name)}
           />
         </div>
         <div className="form-group-input">
           <InputGroup
-            placeholder="Confirm Password"
-            name="confirmPassword"
-            suffixIcon={secondPasswordVisible ? <FaEye /> : <FaEyeSlash />}
-            suffixIconTheme={suffixIconTheme}
-            obscureText={!secondPasswordVisible}
-            onTapSuffix={() => toggleSecondPasswordVisibility()}
+            name="address"
+            suffixIcon={<FaHome />}
+            suffixIconTheme={{ color: '#B0B7C3' }}
+            register={(name) => register(name)}
+          />
+        </div>
+      </section>
+      <section className="form__sections">
+        <div className="form-group-input">
+          <InputGroup
+            name="country"
+            suffixIcon={<FaGlobe />}
+            suffixIconTheme={{ color: '#B0B7C3' }}
+            register={(name) => register(name)}
           />
         </div>
       </section>
       <section className="form__final">
-        <Button theme="btn-main" type="button" text="Save Changes" />
+        <Button theme="btn-main" type="submit" text="Save Changes" />
       </section>
     </form>
   );
 };
 
-ProfilePage.NonEditableForm = () => {
+ProfilePage.NonEditableForm = ({ userData }) => {
   return (
     <section className="non__editable__form">
       <div className="personal__information">
@@ -222,12 +255,22 @@ ProfilePage.NonEditableForm = () => {
           </p>
           <p>
             <span>$0.71</span>
-            <span>John Doe</span>
-            <span>(201) 555-0124</span>
-            <span>Male</span>
-            <span>johndoe@gmail.com</span>
-            <span>1234567890</span>
-            <span>Nigeria</span>
+            <span>
+              {userData?.firstname || <Skeleton height={20} width={150} />}
+            </span>
+            <span>
+              {userData?.phone || <Skeleton height={20} width={150} />}
+            </span>
+            <span>
+              {userData?.username || <Skeleton height={20} width={150} />}
+            </span>
+            <span>
+              {userData?.email || <Skeleton height={20} width={150} />}
+            </span>
+            <span>{userData?.id || <Skeleton height={20} width={150} />}</span>
+            <span>
+              {userData?.country || <Skeleton height={20} width={150} />}
+            </span>
           </p>
         </div>
       </div>

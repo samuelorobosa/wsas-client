@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import appRouter from './core/navigation/approuter';
 import './core/uikit/GlobalStyleSheets/GlobalStyleSheets.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 function App() {
   return (
